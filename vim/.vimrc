@@ -1,3 +1,6 @@
+set encoding=utf-8
+scriptencoding utf-8
+
 " PLUGINS IMPORT{{{
 set nocompatible
 filetype off
@@ -11,8 +14,6 @@ Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 " File window
 Plugin 'scrooloose/nerdtree'
-" Undotree visualize
-Plugin 'mbbill/undotree'
 " Syntax checking
 Plugin 'w0rp/ale'
 Plugin 'sheerun/vim-polyglot'
@@ -20,7 +21,7 @@ Plugin 'pietalin/vim-jsx-typescript'
 " TS vim plugin
 Plugin 'Quramy/tsuquyomi'
 " Autocomplete
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 " Close brackets
 Plugin 'jiangmiao/auto-pairs'
 " Close html tags
@@ -33,6 +34,8 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-commentary'
 " Git helpers
 Plugin 'tpope/vim-fugitive'
+" Handy actions
+Plugin 'tpope/vim-unimpaired'
 " Colored color codes
 Plugin 'chrisbra/Colorizer'
 " Show space with |
@@ -54,7 +57,8 @@ syntax on
 if (has("termguicolors"))
  set termguicolors
 endif
-colorscheme solarized8
+colorscheme oceanic-next
+set background=dark
 " }}}
 
 " BASIC CONFIG {{{
@@ -68,9 +72,13 @@ set foldlevelstart=10                                                         " 
 set foldnestmax=10                                                            " 10 nested fold max
 set cursorline                                                                " highlight current line
 runtime macros/matchit.vim                                                    " match closing tags
+nnoremap <SPACE> <Nop>
+let mapleader = "\<Space>"                                                    " define leader
+" set lcs=tab:>-,trail:-,space:.
+" set list
 " }}}
 
-" WHITESPACE FORMATTING {{{ 
+" WHITESPACE FORMATTING {{{
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |
     \ set softtabstop=4 |
@@ -93,7 +101,6 @@ nnoremap <silent> <F3> :GFiles<CR>
 nnoremap <silent> <C-F3> :Files<CR>
 nnoremap <silent> <F4> :ColorToggle<CR>
 nnoremap <silent> <F5> :Ag<CR>
-nnoremap <silent> <F9> :UndotreeToggle<CR>
 nnoremap <F6> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " TABS {{{
@@ -108,8 +115,8 @@ nnoremap <silent> <S-l> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 " SEARCH {{{
 set incsearch                                                                 " search characters when entered
 set hlsearch                                                                  " highlight matches
-" Turn of search highlight on enter press
-nnoremap <CR> :noh<CR><CR>
+" Turn of search highlight
+nnoremap <leader>; :noh<CR>
 " }}}
 
 " PLUGIN SETTINGS {{{
@@ -127,6 +134,14 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_sign_error = '>'
 let g:ale_sign_warning = '-'
+let g:ale_fixers = {
+\   'typescript': [
+\       'tslint',
+\   ],
+\   'typescript.jsx': [
+\       'tslint',
+\   ],
+\}
 " }}}
 
 " FZF {{{
@@ -155,12 +170,8 @@ let g:closetag_emptyTags_caseSensitive = 1
 " }}}
 
 " YouCompleteMe {{{
-set completeopt-=preview
-let g:ycm_python_binary_path = '/usr/bin/python3'
-" }}}
-
-" delimitMate {{{
-" let delimitMate_expand_cr = 1
+" set completeopt-=preview
+" let g:ycm_python_binary_path = '/usr/bin/python3'
 " }}}
 
 " Airline {{{
