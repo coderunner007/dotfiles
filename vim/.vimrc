@@ -46,18 +46,18 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 " Color scheme
-Plugin 'rafi/awesome-vim-colorschemes'
-Plugin 'altercation/vim-colors-solarized'
+" Plugin 'rafi/awesome-vim-colorschemes'
+" Plugin 'altercation/vim-colors-solarized'
 call vundle#end()
 " }}}
 
-" COLORS SCHEME {{{
+" COLORSCHEME {{{
 filetype plugin indent on
 syntax on
 if (has("termguicolors"))
  set termguicolors
 endif
-colorscheme oceanic-next
+colorscheme al-custom
 set background=dark
 " }}}
 
@@ -71,14 +71,19 @@ set foldmethod=syntax                                                         " 
 set foldlevelstart=10                                                         " open most folds by default
 set foldnestmax=10                                                            " 10 nested fold max
 set cursorline                                                                " highlight current line
+set wildmenu                                                                  " show menu on statusline when command completing
 runtime macros/matchit.vim                                                    " match closing tags
-nnoremap <SPACE> <Nop>
-let mapleader = "\<Space>"                                                    " define leader
-" set lcs=tab:>-,trail:-,space:.
-" set list
+
+" SEARCH {{{
+set incsearch                                                                 " search characters when entered
+set hlsearch                                                                  " highlight matches
+set ignorecase                                                                " case insensitive
+set smartcase                                                                 " case sensitive if has capital letters
+" }}}
 " }}}
 
-" WHITESPACE FORMATTING {{{
+" WHITESPACE {{{
+" PER FILE WHITESPACE DEFINITIONS {{{
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |
     \ set softtabstop=4 |
@@ -95,28 +100,48 @@ au BufNewFile,BufRead *.js,*.html,*.css,*.jsx,*.ts,*.tsx,*.scss,*.json
 set expandtab
 " }}}
 
+" SHOW BAD WHITESPACE {{{
+" Use the below highlight group when displaying bad whitespace is desired.
+highlight BadWhitespace ctermbg=red guibg=red
+" Display tabs at the beginning of a line in Python mode as bad.
+au BufRead,BufNewFile *.py,*.pyw,*.js,*.html,*.jsx,*.ts,*.tsx match BadWhitespace /^\t\+/
+" Make trailing whitespace be flagged as bad.
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.js,*.jsx,*.html,*.ts,*.tsx match BadWhitespace /\s\+$/
+" Use UNIX (\n) line endings.
+au BufNewFile *.py,*.pyw,*.c,*.h,*.js,*.jsx,*.html,*.ts,*.tsx set fileformat=unix
+" 80-line highlight
+highlight OverLength ctermbg=darkgrey guibg=#592929
+2match OverLength /\%81v.\+/
+" set background color
+highlight Normal ctermfg=white ctermbg=235
+" }}}
+" }}}
+
 " KEY REMAPPINGS {{{
+" TOGGLES {{{
 set pastetoggle=<F2>
 nnoremap <silent> <F3> :GFiles<CR>
 nnoremap <silent> <C-F3> :Files<CR>
 nnoremap <silent> <F4> :ColorToggle<CR>
 nnoremap <silent> <F5> :Ag<CR>
-nnoremap <F6> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+nnoremap <F6> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:noh<CR>
+" }}}
 
-" TABS {{{
+" VIM TABS {{{
 nnoremap th :tabprevious<CR>
 nnoremap tl :tabnext<CR>
 nnoremap <silent> <S-h> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <S-l> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 " }}}
 
-" }}}
-
-" SEARCH {{{
-set incsearch                                                                 " search characters when entered
-set hlsearch                                                                  " highlight matches
+" LEADER MAPPINGS {{{
+nnoremap <SPACE> <Nop>
+let mapleader = "\<Space>"
+nnoremap <leader>f :ALEFix<CR>
+nnoremap <leader>x :bufdo bw<CR>
 " Turn of search highlight
 nnoremap <leader>; :noh<CR>
+" }}}
 " }}}
 
 " PLUGIN SETTINGS {{{
@@ -169,15 +194,17 @@ let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.ts,*.tsx'
 let g:closetag_emptyTags_caseSensitive = 1
 " }}}
 
-" YouCompleteMe {{{
-" set completeopt-=preview
-" let g:ycm_python_binary_path = '/usr/bin/python3'
-" }}}
-
 " Airline {{{
 let g:airline#extensions#ale#enabled = 1
-" let g:airline_powerline_fonts = 1
 let g:airline_section_z = '%3l/%L:%3v'
+let g:airline_theme='solarized'
+" }}}
+
+" vim-jsx-typescript {{{
+" set filetypes as typescript.jsx also set colorscheme here,
+" since vim-jsx-typescript tags will only be available when
+" it is enabled.
+autocmd BufNewFile,BufRead *.tsx set filetype=typescript.jsx | colorscheme al-custom
 " }}}
 " }}}
 
