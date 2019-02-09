@@ -30,9 +30,9 @@ floating_modifier $mod
 # key bindings for different apps
 bindsym $mod1+t exec gnome-terminal
 bindsym $mod1+x exec gvim
-bindsym $mod1+e exec nautilus --no-desktop 
-bindsym $mod1+w exec atom
-bindsym $mod1+b exec google-chrome 
+bindsym $mod1+e exec nautilus --no-desktop
+bindsym $mod1+w exec zsh -c vim
+bindsym $mod1+b exec google-chrome-stable
 bindsym $mod1+r exec exec rofi -width 30 -show run
 bindsym $mod1+c exec gnome-calculator
 
@@ -42,8 +42,7 @@ bindsym	$mod2+Down exec amixer sset Master 3%-
 
 # mpc(media player daemon client) controls
 bindsym	$mod2+Shift+Left exec mpc prev
-bindsym	$mod2+Shift+Right exec mpc next	
-bindsym $mod2+p exec python /home/student/.config/i3/mpc_play_pause.py > /dev/null
+bindsym	$mod2+Shift+Right exec mpc next
 
 # Screenshot
 bindsym Print exec xfce4-screenshooter -w -s ~/Pictures/
@@ -59,6 +58,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightne
 
 # Kill app
 bindsym $mod1+F4 kill
+bindsym $mod1+q kill
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
@@ -112,6 +112,9 @@ bindsym $mod+Shift+space floating toggle
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
+# toggle status bar
+bindsym $mod+b bar mode toggle
+
 # focus the parent container
 bindsym $mod+a focus parent
 
@@ -143,7 +146,7 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # multi_monitor support: switch between various modes
-bindsym $mod+Shift+m exec --no-startup-id ~/.config/i3/multi_monitor 
+bindsym $mod+Shift+m exec --no-startup-id ~/.config/i3/multi_monitor
 # multi_monitor support: switch workspaces output
 bindsym $mod+Shift+comma move workspace to output left
 bindsym $mod+Shift+period move workspace to output right
@@ -190,7 +193,7 @@ mode "$mode_system" {
     bindsym s exec dm-tool lock && systemctl suspend, mode "default"
     bindsym h exec dm-tool lock && systemctl hibernate, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -198,6 +201,7 @@ mode "$mode_system" {
 }
 
 bindsym $mod+F4 mode "$mode_system"
+bindsym $mod+Shift+q mode "$mode_system"
 
 # Colours the windows
 #Class			border	backgr.	text	indicator
@@ -209,10 +213,10 @@ client.urgent		#fbfc1e #3E515A	#fbfc1e	#fbfc1e
 #Auto-start
 exec --no-startup-id nm-applet
 exec --no-startup-id gtk-redshift
-exec --no-startup-id xpad 
-exec --no-startup-id blueman-applet
-# exec --no-startup-id slack
-exec --no-startup-id feh --bg-scale Pictures/alena-aenami-eclipse-1k.jpg
+exec --no-startup-id xpad
+# exec --no-startup-id blueman-applet
+# exec --no-startup-id feh --bg-scale Pictures/alena-aenami-eclipse-1k.jpg
+exec --no-startup-id dropbox start -i
 
 #i3_bar
 bar {
@@ -220,13 +224,16 @@ bar {
     status_command /home/coderunner007/.config/conky-i3bar
 
     position          bottom
-    workspace_buttons no
+    workspace_buttons yes
     separator_symbol "  "
 
     font pango:Roboto, FontAwesome 10
 
     colors {
         background #000000
+        inactive_workspace #000000 #000000 #808080
+        active_workspace #000000 #000000 #ffffff
+        focused_workspace #000000 #696969 #ffffff
     }
 }
 

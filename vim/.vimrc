@@ -14,19 +14,19 @@ Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 " File window
 Plugin 'scrooloose/nerdtree'
+" Undo tree
+" Plugin 'mbbill/undotree'
 " Syntax checking
 Plugin 'w0rp/ale'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'pietalin/vim-jsx-typescript'
 " TS vim plugin
 Plugin 'Quramy/tsuquyomi'
-" Autocomplete
-" Plugin 'Valloric/YouCompleteMe'
 " Close brackets
 Plugin 'jiangmiao/auto-pairs'
 " Close html tags
 Plugin 'alvan/vim-closetag'
-" Tag editing
+" Custom motions.
 Plugin 'tpope/vim-surround'
 " Repeat tpope commands with .
 Plugin 'tpope/vim-repeat'
@@ -68,8 +68,10 @@ set noswapfile                                                                " 
 set encoding=utf-8                                                            " Default encoding linux
 set nu                                                                        " set line numbers
 set foldmethod=syntax                                                         " folding
-set foldlevelstart=10                                                         " open most folds by default
-set foldnestmax=10                                                            " 10 nested fold max
+" set foldlevelstart=10                                                         " open most folds by default
+" set foldnestmax=10                                                            " 10 nested fold max
+set history=200
+set foldlevel=0
 set cursorline                                                                " highlight current line
 set wildmenu                                                                  " show menu on statusline when command completing
 runtime macros/matchit.vim                                                    " match closing tags
@@ -117,7 +119,7 @@ highlight Normal ctermfg=white ctermbg=235
 " }}}
 " }}}
 
-" KEY REMAPPINGS {{{
+" CUSTOM KEY MAPPINGS {{{
 " TOGGLES {{{
 set pastetoggle=<F2>
 nnoremap <silent> <F3> :GFiles<CR>
@@ -130,8 +132,10 @@ nnoremap <F6> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:noh<CR>
 " VIM TABS {{{
 nnoremap th :tabprevious<CR>
 nnoremap tl :tabnext<CR>
-nnoremap <silent> <S-h> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
-nnoremap <silent> <S-l> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
+nnoremap tq :tabclose<CR>
+nnoremap to :tabe<CR>
+nnoremap tH :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+nnoremap tL :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 " }}}
 
 " LEADER MAPPINGS {{{
@@ -139,9 +143,32 @@ nnoremap <SPACE> <Nop>
 let mapleader = "\<Space>"
 nnoremap <leader>f :ALEFix<CR>
 nnoremap <leader>x :bufdo bw<CR>
-" Turn of search highlight
+" Turn off search highlight
 nnoremap <leader>; :noh<CR>
+nnoremap <leader>r :TsuRenameSymbol<CR>
+nnoremap <leader>u :UndotreeToggle<CR>
+" toggle mappings
+nnoremap <leader>g :GFiles<CR>
+nnoremap <leader>a :Ag<CR>
+nnoremap <leader>b :Buffers<CR>
 " }}}
+
+" SNIPPET MAPPINGS {{{
+" React Snippets.
+nnoremap ,modal :-1read $HOME/.vim/snippets/modal.tsx<CR>
+nnoremap ,tabs :-1read $HOME/.vim/snippets/tabs.tsx<CR>
+" }}}
+
+" EX-MODE REMAPPINGS {{{
+" Map to Up, Down keys for filter functionality
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+" }}}
+
+" }}}
+
+" SAVED MACROS {{{
+let @q = 'cs"'lva'S)lva)S}liclassnames'
 " }}}
 
 " PLUGIN SETTINGS {{{
