@@ -1,0 +1,9 @@
+# setup directory to hold npm packages.
+NPM_PACKAGES="$HOME/.npm-packages"
+export NPM_PACKAGES="$HOME/.npm-packages"
+mkdir -p "$NPM_PACKAGES"
+
+# set the above directory to hold the npm packages.
+echo "prefix = $NPM_PACKAGES" >> ~/.npmrc
+
+# Rest of the config is loaded from .zshrc
