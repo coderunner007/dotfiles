@@ -19,9 +19,9 @@ Plugin 'scrooloose/nerdtree'
 " Syntax checking
 Plugin 'w0rp/ale'
 Plugin 'sheerun/vim-polyglot'
-Plugin 'pietalin/vim-jsx-typescript'
+" Plugin 'pietalin/vim-jsx-typescript'
 " TS vim plugin
-Plugin 'Quramy/tsuquyomi'
+" Plugin 'Quramy/tsuquyomi'
 " Close brackets
 Plugin 'jiangmiao/auto-pairs'
 " Close html tags
@@ -45,9 +45,6 @@ Plugin 'airblade/vim-gitgutter'
 " statusline: airline
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-" Color scheme
-" Plugin 'rafi/awesome-vim-colorschemes'
-" Plugin 'altercation/vim-colors-solarized'
 call vundle#end()
 " }}}
 
@@ -167,8 +164,11 @@ cnoremap <C-n> <Down>
 
 " }}}
 
-" SAVED MACROS {{{
-let @q = 'cs"'lva'S)lva)S}liclassnames'
+" GUI SETTINGS {{{
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove scrollbar-right
+set guioptions-=L  "remove scrollbar-left
 " }}}
 
 " PLUGIN SETTINGS {{{
@@ -184,7 +184,8 @@ let NERDTreeHijackNetrw=1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_sign_error = '>'
+let g:ale_sign_error = 'x'
+let g:ale_completion_enabled = 1
 let g:ale_sign_warning = '-'
 let g:ale_fixers = {
 \   'typescript': [
@@ -193,6 +194,9 @@ let g:ale_fixers = {
 \   'typescript.jsx': [
 \       'tslint',
 \   ],
+\   'javascript': [
+\      'eslint',
+\   ]
 \}
 " }}}
 
@@ -227,12 +231,30 @@ let g:airline_section_z = '%3l/%L:%3v'
 let g:airline_theme='solarized'
 " }}}
 
-" vim-jsx-typescript {{{
-" set filetypes as typescript.jsx also set colorscheme here,
-" since vim-jsx-typescript tags will only be available when
-" it is enabled.
-autocmd BufNewFile,BufRead *.tsx set filetype=typescript.jsx | colorscheme al-custom
 " }}}
+
+" STATUS LINE SETTINGS {{{
+" function! GitBranch()
+"   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+" endfunction
+
+" function! StatuslineGit()
+"   let l:branchname = GitBranch()
+"   return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+" endfunction
+
+" set statusline=
+" set statusline+=%#PmenuSel#
+" set statusline+=%{StatuslineGit()}
+" set statusline+=%#LineNr#
+" set statusline+=\ %t
+" " set statusline+=%m\
+" set statusline+=%=
+" set statusline+=%#CursorColumn#
+" " set statusline+=\ %y
+" set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+" set statusline+=\[%{&fileformat}\]
+" set statusline+=\ %p%%:%c
 " }}}
 
 set modelines=1
