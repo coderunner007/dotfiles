@@ -1,0 +1,68 @@
+config defaultToCurrentScreen true
+config nudgePercentOf screenSize
+config resizePercentOf screenSize
+
+alias directionLeft j
+alias directionRight ;
+alias directionUp l
+alias directionDown k
+
+alias halfScreenPush :ctrl;shift;cmd
+alias normalResize :alt
+alias altResize :shift;alt
+
+alias focusTo :ctrl;shift
+alias nudgeTo :ctrl;shift;alt
+
+# Push Bindings
+# Half screen
+bind ${directionUp}${halfScreenPush}    push up    bar-resize:screenSizeY/2
+bind ${directionRight}${halfScreenPush} push right bar-resize:screenSizeX/2
+bind ${directionDown}${halfScreenPush}  push down  bar-resize:screenSizeY/2
+bind ${directionLeft}${halfScreenPush}  push left  bar-resize:screenSizeX/2
+
+bind f:ctrl;shift;cmd  push down  bar-resize:screenSizeY
+
+# One third screen
+# bind ;:ctrl;alt  push right bar-resize:screenSizeX/3
+# bind j:ctrl;alt  push left  bar-resize:screenSizeX/3
+# bind l:ctrl;alt  push up    bar-resize:screenSizeY/3
+# bind k:ctrl;alt  push down  bar-resize:screenSizeY/3
+
+# bind f:ctrl;alt  push down  bar-resize:screenSizeY
+
+# Focus Bindings
+bind ${directionUp}${focusTo}    focus up
+bind ${directionRight}${focusTo}    focus right
+bind ${directionDown}${focusTo}    focus down
+bind ${directionLeft}${focusTo}    focus left
+
+bind b${focusTo} focus 'Firefox'
+bind t${focusTo} focus 'iTerm2'
+bind g${focusTo} focus 'MacVim'
+bind m${focusTo} focus 'Microsoft Outlook'
+bind n${focusTo} focus 'Notes'
+bind c${focusTo} focus 'Amazon Chime'
+bind e${focusTo} focus 'Finder'
+
+# Resize Bindings
+bind ${directionUp}${normalResize}          resize +0   -10%
+bind ${directionRight}${normalResize}       resize +10% +0
+bind ${directionDown}${normalResize}        resize +0   +10%
+bind ${directionLeft}${normalResize}        resize -10% +0
+
+bind ${directionUp}${altResize}     resize +0   +10% bottom-right
+bind ${directionRight}${altResize}  resize -10% +0 bottom-right
+bind ${directionDown}${altResize}   resize +0   -10% bottom-right
+bind ${directionLeft}${altResize}   resize +10% +0 bottom-right
+
+# yet to configure
+
+# Nudge Bindings
+bind ${directionRight}${nudgeTo} nudge +10% +0
+bind ${directionLeft}${nudgeTo}  nudge -10% +0
+bind ${directionUp}${nudgeTo}    nudge +0   -10%
+bind ${directionDown}${nudgeTo}  nudge +0   +10%
+
+# Window Hints
+bind esc:cmd hint
