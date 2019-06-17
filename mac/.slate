@@ -2,10 +2,10 @@ config defaultToCurrentScreen true
 config nudgePercentOf screenSize
 config resizePercentOf screenSize
 
-alias directionLeft j
-alias directionRight ;
-alias directionUp l
-alias directionDown k
+alias directionLeft h
+alias directionRight l
+alias directionUp k
+alias directionDown j
 
 alias halfScreenPush :ctrl;shift;cmd
 alias normalResize :alt
@@ -44,6 +44,8 @@ bind m${focusTo} focus 'Microsoft Outlook'
 bind n${focusTo} focus 'Notes'
 bind c${focusTo} focus 'Amazon Chime'
 bind e${focusTo} focus 'Finder'
+bind b${focusTo};alt focus 'Google Chrome'
+bind i${focusTo} focus 'IntelliJ IDEA'
 
 # Resize Bindings
 bind ${directionUp}${normalResize}          resize +0   -10%

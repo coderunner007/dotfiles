@@ -1,0 +1,17 @@
+PLUGINS=$HOME/.zsh/plugins
+THEMES=$HOME/.zsh/themes
+
+# Install plugins
+echo 'Downloading plugins...'
+rm -rf $PLUGINS
+mkdir -p $PLUGINS
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $PLUGINS/zsh-syntax-highlighting
+curl https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/plugins/git/git.plugin.zsh > $PLUGINS/git.zsh
+curl https://raw.githubusercontent.com/trapd00r/zsh-syntax-highlighting-filetypes/master/zsh-syntax-highlighting-filetypes.zsh > $PLUGINS/zsh-syntax-highlighting-filetypes.zsh
+
+# Install themes echo 'Downloading theme ...'
+echo 'Downloading and applying powerlevel10k theme...'
+rm -rf $THEMES
+mkdir -p $THEMES
+git clone https://github.com/romkatv/powerlevel10k.git $THEMES/powerlevel10k
+curl https://raw.githubusercontent.com/romkatv/dotfiles-public/master/.purepower > $THEMES/.purepower
