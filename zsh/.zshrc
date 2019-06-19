@@ -16,8 +16,6 @@ source $ZSH_PLUGIN/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSH_PLUGIN/zsh-syntax-highlighting-filetypes.zsh
 source $ZSH_PLUGIN/git.zsh
 
-# Sensible options
-
 # history
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
@@ -28,6 +26,16 @@ setopt HIST_IGNORE_ALL_DUPS # Delete an old recorded event if a new event is a d
 # completion
 zstyle ':completion:*' menu select
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# vim-mode
+bindkey -v
+# allow ctrl-p, ctrl-n for navigate history (standard behaviour)
+bindkey '^P' up-history
+bindkey '^N' down-history
+# allow ctrl-h, ctrl-w, ctrl-? for char and word deletion (standard behaviour)
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
 
 # aliases
 alias cxh='cd ~/workplace/javacart/src/CartExperienceHorizonteWebapp/'
