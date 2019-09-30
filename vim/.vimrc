@@ -17,15 +17,16 @@ Plugin 'scrooloose/nerdtree'
 " Undo tree
 " Plugin 'mbbill/undotree'
 " Syntax checking
-Plugin 'w0rp/ale'
+" Plugin 'w0rp/ale'
 Plugin 'sheerun/vim-polyglot'
+" Plugin 'aming/vim-mason'
 " Plugin 'pietalin/vim-jsx-typescript'
 " TS vim plugin
 " Plugin 'Quramy/tsuquyomi'
 " Close brackets
 Plugin 'jiangmiao/auto-pairs'
 " Close html tags
-Plugin 'alvan/vim-closetag'
+" Plugin 'alvan/vim-closetag'
 " Custom motions.
 Plugin 'tpope/vim-surround'
 " Repeat tpope commands with .
@@ -37,9 +38,9 @@ Plugin 'tpope/vim-fugitive'
 " Handy actions
 Plugin 'tpope/vim-unimpaired'
 " Colored color codes
-Plugin 'chrisbra/Colorizer'
+" Plugin 'chrisbra/Colorizer'
 " Show space with |
-Plugin 'Yggdroot/indentLine'
+" Plugin 'Yggdroot/indentLine'
 " show git-diff in gutter
 Plugin 'airblade/vim-gitgutter'
 " statusline: airline
@@ -73,12 +74,22 @@ set cursorline                                                                " 
 set wildmenu                                                                  " show menu on statusline when command completing
 runtime macros/matchit.vim                                                    " match closing tags
 
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0) " fzf.vim Ag do not match filenames.
 " SEARCH {{{
 set incsearch                                                                 " search characters when entered
 set hlsearch                                                                  " highlight matches
 set ignorecase                                                                " case insensitive
 set smartcase                                                                 " case sensitive if has capital letters
 " }}}
+" }}}
+
+" EXPERMIMENTAL {{{
+set tags=tags                                                                 " look for ctags file
+
+autocmd! BufRead,BufNewFile *.m setfiletype mason
+autocmd! BufRead,BufNewFile *.mi setfiletype mason
+au BufRead *.m :set filetype=mason
+au BufRead *.mi :set filetype=mason
 " }}}
 
 " WHITESPACE {{{
@@ -145,7 +156,8 @@ nnoremap <leader>; :noh<CR>
 nnoremap <leader>r :TsuRenameSymbol<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 " toggle mappings
-nnoremap <leader>g :GFiles<CR>
+nnoremap <leader>g :Files<CR>
+nnoremap <leader>G :GFiles<CR>
 nnoremap <leader>a :Ag<CR>
 nnoremap <leader>b :Buffers<CR>
 " }}}
