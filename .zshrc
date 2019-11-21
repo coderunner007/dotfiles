@@ -4,31 +4,18 @@ ZSH_PLUGIN=$HOME/.zsh/plugins
 autoload -Uz compinit promptinit
 compinit
 
-##########
-# Prompt #
-##########
-autoload -Uz vcs_info
-precmd() { vcs_info }
-# zstyle ':vcs_info:git:*' formats '%b'
-# Solarized color scheme refernce https://github.com/altercation/vim-colors-solarized
-# 256 colors: https://jonasjacek.github.io/colors/
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' unstagedstr '!'
-zstyle ':vcs_info:*' stagedstr '+'
-zstyle ':vcs_info:*' formats "%F{160}%u%f%c %b"
-
-# Updates editor information when the keymap changes.
-setopt PROMPT_SUBST
-PS1='%B%K{166}work%k%b:%F{245}%1~%f >'
-RPS1='%F{245}${vcs_info_msg_0_}%f'
-
 ###########
 # Plugins #
 ###########
 source $ZSH_PLUGIN/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSH_PLUGIN/zsh-syntax-highlighting-filetypes.zsh
 source $ZSH_PLUGIN/git.zsh
+
+###########
+# Themes #
+###########
+source $ZSH_THEMES/powerlevel10k/powerlevel10k.zsh-theme
+source $ZSH_THEMES/.purepower
 
 ##############
 # Completion #
@@ -67,17 +54,21 @@ alias bbr='brc brazil-build'
 alias bball='brc --allPackages'
 alias bbb='brc --allPackages brazil-build'
 alias bbra='bbr apollo-pkg'
-alias cdesk="ssh clouddesk"
 
+# dev env aliases
 alias selenium-server3='java -Dwebdriver.chrome.driver=/Users/alanjos/Documents/cartqa_files/chromedriver -jar ~/Documents/cartqa_files/selenium-server-standalone-3.141.59.jar -port 5555'
 alias selenium-server='java -Dwebdriver.chrome.driver=/Users/alanjos/Downloads/chromedriver -jar ~/Downloads/selenium-server-standalone-2.53.1.jar -port 5555'
 alias odin="ssh -fNL 2009:127.0.0.1:2009 alanjos.aka.corp.amazon.com"
 alias jcd="ssh -fNL 13001:localhost:13001 dev-dsk-alanjos-1b-34afe678.eu-west-1.amazon.com"
 alias bpath="echo RCXQA_CONFIG_OVERRIDE && brazil-path testbuild.configfarm.brazil-config,config,webapps,ApolloCmd && echo CORAL_CONFIG_PATH && brazil-path run.coralconfig"
+alias mrdp="ssh -fNL 13390:localhost:3389 dev-dsk-alanjos-1b-34afe678.eu-west-1.amazon.com"
+alias cdesk="ssh clouddesk"
+
 # my aliasies
 alias ctags="`brew --prefix`/bin/ctags"
 alias tmux-reload='tmux source-file ~/.tmux.conf'
-alias mrdp="ssh -fNL 13390:localhost:3389 dev-dsk-alanjos-1b-34afe678.eu-west-1.amazon.com"
+alias tmux="env TERM=xterm-256color tmux"                                       # to support true color in vim in tmux.
+
 ###########
 # History #
 ###########
@@ -111,3 +102,9 @@ export TERM=xterm-256color
 export PATH=$HOME/bin:$HOME/.toolbox/bin:$PATH
 # to fix Warning: Failed to set locale category * to *.
 export LC_ALL=en_US.UTF-8
+# for android development
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
