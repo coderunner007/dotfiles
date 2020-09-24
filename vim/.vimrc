@@ -46,17 +46,20 @@ Plugin 'airblade/vim-gitgutter'
 " statusline: airline
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'altercation/vim-colors-solarized'
 call vundle#end()
 " }}}
 
 " COLORSCHEME {{{
 filetype plugin indent on
 syntax on
-if (has("termguicolors"))
- set termguicolors
+if exists('+termguicolors')
+        set termguicolors
 endif
-colorscheme al-custom
 set background=dark
+colorscheme solarized
+" https://stackoverflow.com/a/7278548
+" let g:solarized_termcolors=256
 " }}}
 
 " BASIC CONFIG {{{
