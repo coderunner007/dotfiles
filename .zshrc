@@ -13,13 +13,6 @@ ZSH_THEMES=$HOME/.zsh/themes
 ZSH_PLUGIN=$HOME/.zsh/plugins
 
 ###########
-# Plugins #
-###########
-source $ZSH_PLUGIN/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $ZSH_PLUGIN/zsh-syntax-highlighting-filetypes.zsh
-source $ZSH_PLUGIN/git.zsh
-
-###########
 # Themes #
 ###########
 source $ZSH_THEMES/powerlevel10k/powerlevel10k.zsh-theme
@@ -41,6 +34,7 @@ zstyle ':completion::complete:*' gain-privileges 1
 SITE_FUNCTIONS=$(echo /usr/local/share/zsh/site-functions | awk '{print $1}')
 fpath=($SITE_FUNCTIONS $fpath)
 autoload -U $SITE_FUNCTIONS/*(:t)
+
 #####################
 # Vim mode bindings #
 #####################
@@ -59,7 +53,6 @@ bindkey '^r' history-incremental-search-backward
 # Aliases #
 ###########
 # amzn aliases
-alias cxh='cd ~/workplace/javacart/src/CartExperienceHorizonteWebapp/'
 alias bb=brazil-build
 alias bba='brazil-build apollo-pkg'
 alias bre='brazil-runtime-exec'
@@ -72,7 +65,6 @@ alias bbr='brc brazil-build'
 alias bball='brc --allPackages'
 alias bbb='brc --allPackages brazil-build'
 alias bbra='bbr apollo-pkg'
-
 # dev env aliases
 # alias selenium-server3='java -Dwebdriver.chrome.driver=/Users/alanjos/Documents/cartqa_files/chromedriver -jar ~/Documents/cartqa_files/selenium-server-standalone-3.141.59.jar -port 5555'
 # alias selenium-server='java -Dwebdriver.chrome.driver=/Users/alanjos/Downloads/chromedriver -jar ~/Downloads/selenium-server-standalone-2.53.1.jar -port 5555'
@@ -86,18 +78,29 @@ alias cdesk="ssh clouddesk"
 alias ctags="`brew --prefix`/bin/ctags"
 alias tmux-reload='tmux source-file ~/.tmux.conf'
 alias tmux="env TERM=xterm-256color tmux"                                       # to support true color in vim in tmux.
+# cat with syntax highlighting
+alias c='highlight -O ansi --force'
+alias cat='c'
+# https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/history/history.plugin.zsh 
+alias h='history 0'
+alias hs='history 0 | grep'
+alias hsi='history 0 | grep -i'
+# tmux aliases
+alias ta='tmux attach || tmux new'
 
 ###########
 # History #
 ###########
 # number of lines kept in history
-export HISTSIZE=1000
+export HISTSIZE=10000
 # number of lines saved in the history after logout
 export SAVEHIST=1000
 # location of history
 export HISTFILE=~/.zsh_history
 # append command to history file once executed
 setopt inc_append_history
+# ignore duplicates in history
+setopt histignoredups 
 # only show past commands that include the current input
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
@@ -120,13 +123,46 @@ export TERM=xterm-256color
 export PATH=$HOME/bin:$HOME/.toolbox/bin:$PATH
 # to fix Warning: Failed to set locale category * to *.
 export LC_ALL=en_US.UTF-8
-# for android development
-export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-8.jdk/Contents/Home
+
+###########
+# Plugins #
+###########
+source $ZSH_PLUGIN/git.zsh
+source $ZSH_PLUGIN/clipboard.zsh
+source $ZSH_PLUGIN/copyfile.zsh
+source $ZSH_PLUGIN/copydir.zsh
+source $ZSH_PLUGIN/extract.zsh
+source $ZSH_PLUGIN/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $ZSH_PLUGIN/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZSH_PLUGIN/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+###############
+# Plugin Conf #
+###############
+
+# https://github.com/zsh-users/zsh-autosuggestions#configuration
+bindkey '^ ' autosuggest-accept
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+# In vi-mode do substring search,
+# else cycle through autosuggestions using ^n & ^p
+# https://github.com/zsh-users/zsh-history-substring-search#usage
+# cycle through substring search
+bindkey -M vicmd '^p' history-substring-search-up
+bindkey -M vicmd '^n' history-substring-search-down
+# https://github.com/zsh-users/zsh-autosuggestions/issues/303 
+# cycle through autosuggestions
+autoload -U up-line-or-beginning-search
+zle -N up-line-or-beginning-search
+bindkey '^p' up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^n' down-line-or-beginning-search
+# (Old) https://github.com/zsh-users/zsh-history-substring-search#usage
+# bindkey '^p' history-substring-search-up
+# bindkey '^n' history-substring-search-down
+# bindkey -M vicmd 'k' history-substring-search-up
+# bindkey -M vicmd 'j' history-substring-search-down
