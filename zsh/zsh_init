@@ -1,5 +1,6 @@
 PLUGINS=$HOME/.zsh/plugins
 THEMES=$HOME/.zsh/themes
+CACHE=$HOME/.zsh/cache
 
 # Install plugins
 echo 'Downloading plugins...'
@@ -24,8 +25,13 @@ curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/copydir/co
 echo 'Extract any compressed file'
 curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/extract/_extract > $PLUGINS/_extract
 curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/extract/extract.plugin.zsh > $PLUGINS/extract.zsh
+echo 'Fasd zsh plugin'
+curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/fasd/fasd.plugin.zsh > $PLUGINS/fasd.plugin.zsh
+
 echo '\nInstall the following commands after this script is run:'
 echo '1. highlight (http://www.andre-simon.de/doku/highlight/en/install.php)'
+echo '2. fasd (https://github.com/clvv/fasd/wiki/Installing-via-Package-Managers)'
+echo '\n'
 
 # Install themes
 echo 'Downloading theme ...'
@@ -34,3 +40,6 @@ rm -rf $THEMES
 mkdir -p $THEMES
 git clone https://github.com/romkatv/powerlevel10k.git $THEMES/powerlevel10k
 curl https://raw.githubusercontent.com/romkatv/dotfiles-public/master/.purepower > $THEMES/.purepower
+
+# Created directory for cache (history, fasd)
+mkdir -p $CACHE

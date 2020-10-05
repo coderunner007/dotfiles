@@ -11,6 +11,7 @@ fi
 
 ZSH_THEMES=$HOME/.zsh/themes
 ZSH_PLUGIN=$HOME/.zsh/plugins
+ZSH_CACHE_DIR=$HOME/.zsh/cache
 
 ###########
 # Themes #
@@ -94,13 +95,15 @@ alias ta='tmux attach || tmux new'
 # number of lines kept in history
 export HISTSIZE=10000
 # number of lines saved in the history after logout
-export SAVEHIST=1000
+export SAVEHIST=10000
 # location of history
-export HISTFILE=~/.zsh_history
+export HISTFILE=$ZSH_CACHE_DIR/.zsh_history
 # append command to history file once executed
-setopt inc_append_history
+setopt INC_APPEND_HISTORY
 # ignore duplicates in history
-setopt histignoredups 
+setopt HIST_IGNORE_DUPS 
+# add timestamp for each entry
+setopt EXTENDED_HISTORY
 # only show past commands that include the current input
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
@@ -136,6 +139,7 @@ source $ZSH_PLUGIN/clipboard.zsh
 source $ZSH_PLUGIN/copyfile.zsh
 source $ZSH_PLUGIN/copydir.zsh
 source $ZSH_PLUGIN/extract.zsh
+source $ZSH_PLUGIN/fasd.plugin.zsh
 source $ZSH_PLUGIN/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZSH_PLUGIN/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSH_PLUGIN/zsh-history-substring-search/zsh-history-substring-search.zsh
@@ -143,12 +147,14 @@ source $ZSH_PLUGIN/zsh-history-substring-search/zsh-history-substring-search.zsh
 ###############
 # Plugin Conf #
 ###############
-
+# Initialize fasd
+eval "$(fasd --init auto)"
 # https://github.com/zsh-users/zsh-autosuggestions#configuration
 bindkey '^ ' autosuggest-accept
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-# In vi-mode do substring search,
-# else cycle through autosuggestions using ^n & ^p
+# Using ^n & ^p, cycle through
+# vi-mode: substring search,
+# insert mode:  autosuggestions 
 # https://github.com/zsh-users/zsh-history-substring-search#usage
 # cycle through substring search
 bindkey -M vicmd '^p' history-substring-search-up
