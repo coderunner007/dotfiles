@@ -1,13 +1,14 @@
-# https://wiki.archlinux.org/index.php/zsh#Command_completion
-autoload -Uz compinit promptinit
-compinit
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+
+# https://wiki.archlinux.org/index.php/zsh#Command_completion
+autoload -Uz compinit promptinit
+compinit
+
 
 ZSH_THEMES=$HOME/.zsh/themes
 ZSH_PLUGIN=$HOME/.zsh/plugins
@@ -26,7 +27,6 @@ source $ZSH_THEMES/.purepower
 zstyle ':completion:*' menu select
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-setopt COMPLETE_ALIASES
 zstyle ':completion::complete:*' gain-privileges 1
 
 # Add Amazon tab completions
@@ -126,6 +126,9 @@ export TERM=xterm-256color
 export PATH=$HOME/bin:$HOME/.toolbox/bin:$PATH
 # to fix Warning: Failed to set locale category * to *.
 export LC_ALL=en_US.UTF-8
+# for Android SDK & emulator (https://stackoverflow.com/a/49511666)
+export ANDROID_SDK=$HOME/Library/Android/sdk
+export PATH=$ANDROID_SDK/emulator:$ANDROID_SDK/tools:$PATH
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -167,6 +170,9 @@ bindkey '^p' up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey '^n' down-line-or-beginning-search
+# For zsh-completions to work
+# https://github.com/zsh-users/zsh-completions#manual-installation
+fpath=($ZSH_PLUGIN/zsh-completions/src $fpath)
 # (Old) https://github.com/zsh-users/zsh-history-substring-search#usage
 # bindkey '^p' history-substring-search-up
 # bindkey '^n' history-substring-search-down

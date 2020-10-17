@@ -12,6 +12,8 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $PLUGINS/zsh-
 # curl https://raw.githubusercontent.com/trapd00r/zsh-syntax-highlighting-filetypes/master/zsh-syntax-highlighting-filetypes.zsh > $PLUGINS/zsh-syntax-highlighting-filetypes.zsh
 echo 'Git aliases'
 curl https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/plugins/git/git.plugin.zsh > $PLUGINS/git.zsh
+echo 'zsh completions'
+git clone git://github.com/zsh-users/zsh-completions.git $PLUGINS/zsh-completions
 echo 'Auto-suggestion'
 git clone https://github.com/zsh-users/zsh-autosuggestions.git $PLUGINS/zsh-autosuggestions
 echo 'History search'
@@ -31,6 +33,7 @@ curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/fasd/fasd.
 echo '\nInstall the following commands after this script is run:'
 echo '1. highlight (http://www.andre-simon.de/doku/highlight/en/install.php)'
 echo '2. fasd (https://github.com/clvv/fasd/wiki/Installing-via-Package-Managers)'
+echo '3. May have to rebuild zcompdump for zsh-completions (https://github.com/zsh-users/zsh-completions#manual-installation): rm -f ~/.zcompdump; compinit\n'
 echo '\n'
 
 # Install themes
