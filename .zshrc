@@ -143,6 +143,7 @@ source $ZSH_PLUGIN/copyfile.zsh
 source $ZSH_PLUGIN/copydir.zsh
 source $ZSH_PLUGIN/extract.zsh
 source $ZSH_PLUGIN/fasd.plugin.zsh
+source $ZSH_PLUGIN/amzn.zsh
 source $ZSH_PLUGIN/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZSH_PLUGIN/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSH_PLUGIN/zsh-history-substring-search/zsh-history-substring-search.zsh
@@ -178,3 +179,8 @@ fpath=($ZSH_PLUGIN/zsh-completions/src $fpath)
 # bindkey '^n' history-substring-search-down
 # bindkey -M vicmd 'k' history-substring-search-up
 # bindkey -M vicmd 'j' history-substring-search-down
+
+# For node
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

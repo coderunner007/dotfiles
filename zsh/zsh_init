@@ -29,6 +29,8 @@ curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/extract/_e
 curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/extract/extract.plugin.zsh > $PLUGINS/extract.zsh
 echo 'Fasd zsh plugin'
 curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/fasd/fasd.plugin.zsh > $PLUGINS/fasd.plugin.zsh
+echo 'Amazon specific plugin'
+(TEMP=`pwd`; cd $ZSH_PLUGIN; ln -s $TEMP/amzn.zsh amzn.zsh;)
 
 echo '\nInstall the following commands after this script is run:'
 echo '1. highlight (http://www.andre-simon.de/doku/highlight/en/install.php)'
