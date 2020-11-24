@@ -1,6 +1,7 @@
 PLUGINS=$HOME/.zsh/plugins
 THEMES=$HOME/.zsh/themes
 CACHE=$HOME/.zsh/cache
+TMUX_PLUGINS=$HOME/.tmux/plugins
 
 # Install plugins
 echo 'Downloading plugins...'
@@ -31,6 +32,9 @@ echo 'Fasd zsh plugin'
 curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/fasd/fasd.plugin.zsh > $PLUGINS/fasd.plugin.zsh
 echo 'Amazon specific plugin'
 (TEMP=`pwd`; cd $ZSH_PLUGIN; ln -s $TEMP/amzn.zsh amzn.zsh;)
+
+echo '\n Installing tmux plugin manager'
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 echo '\nInstall the following commands after this script is run:'
 echo '1. highlight (http://www.andre-simon.de/doku/highlight/en/install.php)'
