@@ -17,7 +17,7 @@ Plugin 'scrooloose/nerdtree'
 " Undo tree
 " Plugin 'mbbill/undotree'
 " Syntax checking
-" Plugin 'w0rp/ale'
+Plugin 'dense-analysis/ale'
 Plugin 'sheerun/vim-polyglot'
 " Plugin 'aming/vim-mason'
 " Plugin 'pietalin/vim-jsx-typescript'
@@ -46,23 +46,19 @@ Plugin 'airblade/vim-gitgutter'
 " statusline: airline
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-" Plugin 'altercation/vim-colors-solarized'
-" Plugin 'altercation/solarized'
-Plugin 'joshdick/onedark.vim'
+Plugin 'altercation/vim-colors-solarized'
+" Plugin 'flazz/vim-colorschemes'
+" Plugin 'joshdick/onedark.vim'
 call vundle#end()
 " }}}
 
 " COLORSCHEME {{{
 filetype plugin indent on
-syntax on
-if exists('+termguicolors')
-        set termguicolors
-endif
-" set background=dark
-" https://stackoverflow.com/a/7278548
-" let g:solarized_termcolors=256
-" colorscheme solarized
-colorscheme onedark
+syntax enable
+let g:solarized_termcolors=16
+let g:solarized_termtrans = 1
+set background=dark
+colorscheme solarized
 " }}}
 
 " BASIC CONFIG {{{
@@ -80,7 +76,6 @@ set cursorline                                                                " 
 set wildmenu                                                                  " show menu on statusline when command completing
 runtime macros/matchit.vim                                                    " match closing tags
 
-command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0) " fzf.vim Ag do not match filenames.
 " SEARCH {{{
 set incsearch                                                                 " search characters when entered
 set hlsearch                                                                  " highlight matches
@@ -91,15 +86,19 @@ set smartcase                                                                 " 
 
 " EXPERMIMENTAL {{{
 set tags=tags                                                                 " look for ctags file
-
-autocmd! BufRead,BufNewFile *.m setfiletype mason
-autocmd! BufRead,BufNewFile *.mi setfiletype mason
-au BufRead *.m :set filetype=mason
-au BufRead *.mi :set filetype=mason
+" For recursive search
+" set path
+" set path+=**
+" For completion
+set omnifunc=syntaxcomplete#Complete
 " }}}
 
 " WHITESPACE {{{
 " PER FILE WHITESPACE DEFINITIONS {{{
+autocmd! BufRead,BufNewFile *.m setfiletype mason
+autocmd! BufRead,BufNewFile *.mi setfiletype mason
+au BufRead *.m :set filetype=mason
+au BufRead *.mi :set filetype=mason
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |
     \ set softtabstop=4 |
@@ -114,6 +113,7 @@ au BufNewFile,BufRead *.js,*.html,*.css,*.jsx,*.ts,*.tsx,*.scss,*.json
     \ set softtabstop=2 |
     \ set shiftwidth=2 |
 set expandtab
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 " }}}
 
 " SHOW BAD WHITESPACE {{{
@@ -199,26 +199,28 @@ let NERDTreeHijackNetrw=1
 " }}}
 
 " ALE {{{
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_sign_error = 'x'
-let g:ale_completion_enabled = 1
-let g:ale_sign_warning = '-'
+let g:ale_echo_msg_error_str = 'ERROR'
+let g:ale_echo_msg_warning_str = 'WARNING'
+let g:ale_echo_msg_format = '[%severity%] %s [%linter%]'
+" Highlight the error/warning: https://github.com/dense-analysis/ale/issues/44#issuecomment-283252535
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+highlight ALEErrorSign ctermbg=red ctermfg=NONE
+highlight ALEWarningSign ctermbg=yellow ctermfg=NONE
 let g:ale_fixers = {
-\   'typescript': [
-\       'tslint',
-\   ],
-\   'typescript.jsx': [
-\       'tslint',
-\   ],
-\   'javascript': [
-\      'eslint',
-\   ]
+\   'javascript': ['prettier'],
+\   'typescript': ['prettier'],
+\   'css': ['prettier'],
+\}
+let g:ale_linters = {
+\   'javascript': ['prettier'],
+\   'typescript': ['prettier'],
+\   'css': ['prettier'],
 \}
 " }}}
 
 " FZF {{{
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0) " fzf.vim Ag do not match filenames.
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -234,10 +236,6 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 " }}}
 
-" vim-jsx {{{
-let g:jsx_ext_required = 0                                                    " Allow jsx highlighting in js files
-" }}}
-
 " vim-closetag {{{
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.ts,*.tsx'
 let g:closetag_emptyTags_caseSensitive = 1
@@ -246,7 +244,8 @@ let g:closetag_emptyTags_caseSensitive = 1
 " Airline {{{
 let g:airline#extensions#ale#enabled = 1
 let g:airline_section_z = '%3l/%L:%3v'
-let g:airline_theme='onedark'
+" let g:airline_theme='onedark'
+let g:airline_theme='solarized'
 " }}}
 
 " }}}
