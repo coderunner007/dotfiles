@@ -17,7 +17,7 @@ Plugin 'scrooloose/nerdtree'
 " Undo tree
 " Plugin 'mbbill/undotree'
 " Syntax checking
-Plugin 'dense-analysis/ale'
+" Plugin 'dense-analysis/ale'
 Plugin 'sheerun/vim-polyglot'
 " Plugin 'aming/vim-mason'
 " Plugin 'pietalin/vim-jsx-typescript'
@@ -46,19 +46,25 @@ Plugin 'airblade/vim-gitgutter'
 " statusline: airline
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'altercation/vim-colors-solarized'
-" Plugin 'flazz/vim-colorschemes'
-" Plugin 'joshdick/onedark.vim'
+Plugin 'mhartington/oceanic-next'
 call vundle#end()
 " }}}
 
 " COLORSCHEME {{{
 filetype plugin indent on
-syntax enable
-let g:solarized_termcolors=16
-let g:solarized_termtrans = 1
-set background=dark
-colorscheme solarized
+" Theme
+ syntax enable
+" for vim 7
+ set t_Co=256
+
+" for vim 8
+ if (has("termguicolors"))
+  set termguicolors
+ endif
+" for italic/bold support terminals
+" let g:oceanic_next_terminal_bold = 1
+" let g:oceanic_next_terminal_italic = 1
+colorscheme OceanicNext
 " }}}
 
 " BASIC CONFIG {{{
@@ -99,7 +105,7 @@ autocmd! BufRead,BufNewFile *.m setfiletype mason
 autocmd! BufRead,BufNewFile *.mi setfiletype mason
 au BufRead *.m :set filetype=mason
 au BufRead *.mi :set filetype=mason
-au BufNewFile,BufRead *.py
+au BufNewFile,BufRead *.py,*.hs
     \ set tabstop=4 |
     \ set softtabstop=4 |
     \ set shiftwidth=4 |
@@ -107,7 +113,6 @@ au BufNewFile,BufRead *.py
     \ set expandtab |
     \ set autoindent |
     \ set fileformat=unix |
-
 au BufNewFile,BufRead *.js,*.html,*.css,*.jsx,*.ts,*.tsx,*.scss,*.json
     \ set tabstop=2 |
     \ set softtabstop=2 |
@@ -155,7 +160,7 @@ nnoremap tL :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 " LEADER MAPPINGS {{{
 nnoremap <SPACE> <Nop>
 let mapleader = "\<Space>"
-nnoremap <leader>f :ALEFix<CR>
+" nnoremap <leader>f :ALEFix<CR>
 nnoremap <leader>x :bufdo bw<CR>
 " Turn off search highlight
 nnoremap <leader>; :noh<CR>
@@ -199,24 +204,20 @@ let NERDTreeHijackNetrw=1
 " }}}
 
 " ALE {{{
-let g:ale_echo_msg_error_str = 'ERROR'
-let g:ale_echo_msg_warning_str = 'WARNING'
-let g:ale_echo_msg_format = '[%severity%] %s [%linter%]'
-" Highlight the error/warning: https://github.com/dense-analysis/ale/issues/44#issuecomment-283252535
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '⚠'
-highlight ALEErrorSign ctermbg=red ctermfg=NONE
-highlight ALEWarningSign ctermbg=yellow ctermfg=NONE
-let g:ale_fixers = {
-\   'javascript': ['prettier'],
-\   'typescript': ['prettier'],
-\   'css': ['prettier'],
-\}
-let g:ale_linters = {
-\   'javascript': ['prettier'],
-\   'typescript': ['prettier'],
-\   'css': ['prettier'],
-\}
+" let g:ale_echo_msg_error_str = 'ERROR'
+" let g:ale_echo_msg_warning_str = 'WARNING'
+" let g:ale_echo_msg_format = '[%severity%] %s [%linter%]'
+" " Highlight the error/warning: https://github.com/dense-analysis/ale/issues/44#issuecomment-283252535
+" let g:ale_sign_error = '✘'
+" let g:ale_sign_warning = '⚠'
+" highlight ALEErrorSign ctermbg=red ctermfg=NONE
+" highlight ALEWarningSign ctermbg=yellow ctermfg=NONE
+" let g:ale_fixers = {
+" \   'javascript': ['prettier'],
+" \   'typescript': ['prettier'],
+" \   'css': ['prettier'],
+" \}
+" let g:ale_linters_explicit = 1
 " }}}
 
 " FZF {{{
@@ -244,8 +245,6 @@ let g:closetag_emptyTags_caseSensitive = 1
 " Airline {{{
 let g:airline#extensions#ale#enabled = 1
 let g:airline_section_z = '%3l/%L:%3v'
-" let g:airline_theme='onedark'
-let g:airline_theme='solarized'
 " }}}
 
 " }}}

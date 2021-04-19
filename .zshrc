@@ -76,7 +76,7 @@ alias bbra='bbr apollo-pkg'
 alias cdesk="ssh clouddesk"
 
 # my aliasies
-alias ctags="`brew --prefix`/bin/ctags"
+# alias ctags="`brew --prefix`/bin/ctags"
 alias tmux-reload='tmux source-file ~/.tmux.conf'
 alias tmux="env TERM=xterm-256color tmux"                                       # to support true color in vim in tmux.
 # cat with syntax highlighting
@@ -184,3 +184,4 @@ fpath=($ZSH_PLUGIN/zsh-completions/src $fpath)
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -f "/Users/alanjos/.ghcup/env" ] && source "/Users/alanjos/.ghcup/env" # ghcup-env
