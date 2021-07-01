@@ -29,13 +29,6 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 zstyle ':completion::complete:*' gain-privileges 1
 
-# Add Amazon tab completions
-# https://sage.amazon.com/questions/234286?
-# https://sage.amazon.com/questions/114697?#209323
-SITE_FUNCTIONS=$(echo /usr/local/share/zsh/site-functions | awk '{print $1}')
-fpath=($SITE_FUNCTIONS $fpath)
-autoload -U $SITE_FUNCTIONS/*(:t)
-
 #####################
 # Vim mode bindings #
 #####################
@@ -76,7 +69,6 @@ alias bbra='bbr apollo-pkg'
 alias cdesk="ssh clouddesk"
 
 # my aliasies
-alias ctags="`brew --prefix`/bin/ctags"
 alias tmux-reload='tmux source-file ~/.tmux.conf'
 alias tmux="env TERM=xterm-256color tmux"                                       # to support true color in vim in tmux.
 # cat with syntax highlighting
@@ -143,7 +135,6 @@ source $ZSH_PLUGIN/copyfile.zsh
 source $ZSH_PLUGIN/copydir.zsh
 source $ZSH_PLUGIN/extract.zsh
 source $ZSH_PLUGIN/fasd.plugin.zsh
-source $ZSH_PLUGIN/amzn.zsh
 source $ZSH_PLUGIN/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZSH_PLUGIN/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSH_PLUGIN/zsh-history-substring-search/zsh-history-substring-search.zsh
