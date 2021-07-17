@@ -85,9 +85,9 @@ alias ta='tmux attach || tmux new'
 # History #
 ###########
 # number of lines kept in history
-export HISTSIZE=10000
+export HISTSIZE=100000
 # number of lines saved in the history after logout
-export SAVEHIST=10000
+export SAVEHIST=100000
 # location of history
 export HISTFILE=$ZSH_CACHE_DIR/.zsh_history
 # append command to history file once executed

@@ -92,8 +92,8 @@ set smartcase                                                                 " 
 " EXPERMIMENTAL {{{
 set tags=tags                                                                 " look for ctags file
 " Change cursor in VIM https://stackoverflow.com/a/42118416
-let &t_SI = "\e[6 q"
-let &t_EI = "\e[2 q"
+" let &t_SI = "\e[6 q"
+" let &t_EI = "\e[2 q"
 
 autocmd! BufRead,BufNewFile *.m setfiletype mason
 autocmd! BufRead,BufNewFile *.mi setfiletype mason
