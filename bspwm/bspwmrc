@@ -1,28 +1,20 @@
-#! /bin/sh
+#!/bin/sh
 
-#Auto-start
-sxhkd &
-$HOME/.config/polybar/launch.sh
-nm-applet
-gtk-redshift
-# dropbox start -i
-# exec --no-startup-id blueman-applet
-# exec --no-startup-id feh --bg-scale Pictures/alena-aenami-eclipse-1k.jpg
-exec --no-startup-id dropbox start -i
+# Start sxhkd for key bindings
+# Using bspwm with KDE plasma is causing
+# conflicting key bindings, hence redirect errors
+# temporarily
+# sxhkd
 
-# bspc monitor HDMI1 -d I II III
-# bspc monitor eDP1 -d IV V VI VII VIII IX X
-bspc monitor -d I II III IV V VI VII VIII IX X
-# for monitor in $(bspc query -M); do
-#     bspc monitor $monitor -d I II III IV V VI VII VIII IX X
-# done
-
+bspc monitor eDP -d I II III IV
 
 bspc config border_width         0
-bspc config window_gap           0
+bspc config window_gap           1
+bspc config top_padding          70
 
 bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
-bspc rule -a Gimp desktop='^8' state=floating follow=on
+# Floating windows
+bspc rule -a gnome-calculator state=floating follow=on

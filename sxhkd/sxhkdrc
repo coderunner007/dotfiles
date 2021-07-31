@@ -2,40 +2,35 @@
 # program shortcuts
 #
 # terminal emulator
-alt + t
-        gnome-terminal
-# program launcher
-alt + r
-	rofi -width 30 -show run
+alt + shift + t
+	~/.config/sxhkd/isWindowOpen "alacritty" alacritty
 # browser
-alt + b
-        google-chrome-stable
+alt + shift + b
+	~/.config/sxhkd/isWindowOpen "firefox" firefox
 # file manager
-alt + e
-        nautilus --no-desktop
+alt + shift + e
+	~/.config/sxhkd/isWindowOpen "thunar" thunar
 # calculator
-alt + c
-        gnome-calculator
-# screenshooter
-Print
-        xfce4-screenshooter -w -s ~/Pictures/
-
-#
-# Volume controls
-#
-# increase sound volume
-XF86AudioRaiseVolume
-        pactl -- set-sink-volume 0 +5%
-# decrease sound volume
-XF86AudioLowerVolume
-        pactl -- set-sink-volume 0 -5%
-# mute sound
-XF86AudioMute
-        pactl set-sink-mute 0 toggle
+alt + shift + c
+	~/.config/sxhkd/isWindowOpen "Calculator" gnome-calculator
+# Spotify
+alt + shift +  s
+	~/.config/sxhkd/isWindowOpen "spotify" "flatpak run com.spotify.Client"
+# Obsidian
+alt + shift +  o
+	~/.config/sxhkd/isWindowOpen "obsidian" "flatpak run com.obsidian.Client"
+# KeepassXC
+alt + shift +  p
+	~/.config/sxhkd/isWindowOpen "KeePassXC" 'gtk-launch "org.keepassxc.KeePassXC.desktop"'
+# VLC
+alt + shift +  v
+	~/.config/sxhkd/isWindowOpen "vlc" "gtk-launch vlc"
+alt + shift +  x
+	~/.config/sxhkd/isWindowOpen "Thunderbird" "gtk-launch thunderbird"
 
 # make sxhkd reload its configuration files:
-super + Escape
-	pkill -USR1 -x sxhkd
+# super + Escape
+# 	pkill -USR1 -x sxhkd
 
 #
 # bspwm reload & quit
@@ -44,18 +39,18 @@ super + Escape
 super + alt + c
         ~/.config/bspwm/bspwmrc
 # quit bspwm normally
-super + alt + Escape
-	bspc quit
+# super + alt + Escape
+# 	bspc quit
 
 #
 # bspwm close and kill windows
 #
 # close and kill
-alt + {_,shift + }F4
-	bspc node -{c,k}
-# alternate close and kill
-alt + {_,shift + }q
-	bspc node -{c,k}
+# alt + {_,shift + }F4
+# 	bspc node -{c,k}
+# # alternate close and kill
+# alt + {_,shift + }q
+# 	bspc node -{c,k}
 
 #
 # bspwm toggle layouts
@@ -80,11 +75,11 @@ super + g
 # bspwm window state and flags
 #
 # set the window state
-super + {t,shift + t,s,f}
-	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
-# set the node flags
-super + ctrl + {m,x,y,z}
-	bspc node -g {marked,locked,sticky,private}
+# super + {t,shift + t,s,f}
+# 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+# # set the node flags
+# super + ctrl + {m,x,y,z}
+# 	bspc node -g {marked,locked,sticky,private}
 
 #
 # bspwm window focus/swap
@@ -106,57 +101,57 @@ super + bracket{left,right}
 	bspc desktop -f {prev,next}.local
 
 # focus the node for the given path jump
-super + {p,b,comma,period}
-	bspc node -f @{parent,brother,first,second}
-# focus the last node/desktop
-super + {grave,Tab}
-	bspc {node,desktop} -f last
+# super + {p,b,comma,period}
+# 	bspc node -f @{parent,brother,first,second}
+# # focus the last node/desktop
+# super + {grave,Tab}
+# 	bspc {node,desktop} -f last
 # focus the older or newer node in the focus history
-super + {o,i}
-	bspc wm -h off; \
-	bspc node {older,newer} -f; \
-	bspc wm -h on
+# super + {o,i}
+# 	bspc wm -h off; \
+# 	bspc node {older,newer} -f; \
+# 	bspc wm -h on
+# # super + {Down, Up} 
+#  #        DIR={next,prev}; \
+#   #       bspc node -d "$DIR"; \
+#    #      bspc desktop -f "$DIR"
 # super + {Down, Up} 
- #        DIR={next,prev}; \
-  #       bspc node -d "$DIR"; \
-   #      bspc desktop -f "$DIR"
-super + {Down, Up} 
-  desk=`bspc query -D -d --names`; \
-  bspc desktop -m {prev,next}; \
-  bspc monitor -f {prev,next}; \
-  bspc desktop -f $desk
+#   desk=`bspc query -D -d --names`; \
+#   bspc desktop -m {prev,next}; \
+#   bspc monitor -f {prev,next}; \
+#   bspc desktop -f $desk
 #
 # preselect
 #
 
-# preselect the direction
-super + ctrl + {j,k,l,semicolon}
-	bspc node -p {west,south,north,east}
+# # preselect the direction
+# super + ctrl + {j,k,l,semicolon}
+# 	bspc node -p {west,south,north,east}
 
-# preselect the ratio
-super + ctrl + {1-9}
-	bspc node -o 0.{1-9}
+# # preselect the ratio
+# super + ctrl + {1-9}
+# 	bspc node -o 0.{1-9}
 
-# cancel the preselection for the focused node
-super + ctrl + space
-	bspc node -p cancel
+# # cancel the preselection for the focused node
+# super + ctrl + space
+# 	bspc node -p cancel
 
-# cancel the preselection for the focused desktop
-super + ctrl + shift + space
-	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+# # cancel the preselection for the focused desktop
+# super + ctrl + shift + space
+# 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
 #
 # move/resize
 #
 
 # expand a window by moving one of its side outward
-super + alt + {j,k,l,semicolon}
-	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+# super + alt + {j,k,l,semicolon}
+# 	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
-# contract a window by moving one of its side inward
-super + alt + shift + {j,k,l,semicolon}
-	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+# # contract a window by moving one of its side inward
+# super + alt + shift + {j,k,l,semicolon}
+# 	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
-# move a floating window
-super + {Left,Down,Up,Right}
-	bspc node -v {-20 0,0 20,0 -20,20 0}
+# # move a floating window
+# super + {Left,Down,Up,Right}
+# 	bspc node -v {-20 0,0 20,0 -20,20 0}

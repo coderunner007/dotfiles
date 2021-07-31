@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# getWindowNodeMatchingTitleIfOpen() {
+#   # Check if any of the existing open applications (nodes)
+#   # have the same command name as the calling application name.
+#   for node in $(bspc query -N)
+#   do
+#     # echo "Node: $node"
+#     pid=$(./getPIDFromNodeId $1)
+#     # echo "pid: $pid"
+
+#     if [ -n "$pid" ];
+#     then
+#       executableName=$(./getExecutableNameFromPID $pid)
+#       # echo "Executable Name: $executableName"
+#       if [ "$executableName" = $1 ]
+#       then
+#         echo $node
+#         return 0
+#       else
+#         return 1
+#       fi
+#     fi
+#   done
+# }
+
+# # switchToApplicationIfOpenElseNewWindow() {
+# matchingNode=$(getWindowNodeMatchingTitleIfOpen $1)
+# if [ $? -eq 0 ]
+# then
+#   # echo "bspc node -f $matchingNode"
+#   bspc node -f $matchingNode
+# else
+#   exec $1
+# fi
+# }
+
+# switchToApplicationIfOpenElseNewWindow $1
+windowTitleToSearch=$1
+commandToRunIfWindowTitleNotFound=$2
+wmctrl -a $windowTitleToSearch
+if [ $? -eq 1 ]
+then
+  exec $commandToRunIfWindowTitleNotFound
+fi
