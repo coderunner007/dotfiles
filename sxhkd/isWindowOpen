@@ -1,45 +1,53 @@
 #!/bin/bash
 
-# getWindowNodeMatchingTitleIfOpen() {
-#   # Check if any of the existing open applications (nodes)
-#   # have the same command name as the calling application name.
-#   for node in $(bspc query -N)
-#   do
-#     # echo "Node: $node"
-#     pid=$(./getPIDFromNodeId $1)
-#     # echo "pid: $pid"
-
-#     if [ -n "$pid" ];
-#     then
-#       executableName=$(./getExecutableNameFromPID $pid)
-#       # echo "Executable Name: $executableName"
-#       if [ "$executableName" = $1 ]
-#       then
-#         echo $node
-#         return 0
-#       else
-#         return 1
-#       fi
-#     fi
-#   done
-# }
-
-# # switchToApplicationIfOpenElseNewWindow() {
-# matchingNode=$(getWindowNodeMatchingTitleIfOpen $1)
-# if [ $? -eq 0 ]
-# then
-#   # echo "bspc node -f $matchingNode"
-#   bspc node -f $matchingNode
-# else
-#   exec $1
-# fi
-# }
-
-# switchToApplicationIfOpenElseNewWindow $1
-windowTitleToSearch=$1
+searchString=$1
 commandToRunIfWindowTitleNotFound=$2
-wmctrl -a $windowTitleToSearch
-if [ $? -eq 1 ]
+############################################
+# PREVIOUS IMPLEMENTATION:
+# This searched for window title amongst available titles
+# This had the drawback of depending on the title to be 
+# as static as possible.
+# Example scenario in where it would fail:
+# 1. Firefox window has a tab open with the name of "vlc",
+#    then an keybinding to open vlc could possibly open
+#    the Firefox tab
+# 2. Some applications do not have the application name in the title.
+#    Eg. Spotify changes the window title to the current song playing.
+#    Such applications could not be bound easily.
+############
+# wmctrl -a $searchString
+# if [ $? -eq 1 ]
+# then
+#   exec $commandToRunIfWindowTitleNotFound
+# fi
+############################################
+
+############################################
+# How this works:
+# `wmctrl -lx` returns the following output:
+# 0x048000dd  0 Navigator.Firefox     localhost.localdomain cubbon - search results | Facebook — Mozilla Firefox (Private Browsing)
+# 0x04800003  0 Navigator.Firefox     localhost.localdomain Mozilla Firefox
+# Get all the entries then perform the following steps:
+# 1. Split the output by "\n" to get an individual windowEntry
+# 2. Split the windowEntry by " " to get the individual columns
+# 3. Split the 3rd column by "." to get the second part of the window class. i.e. Firefox instead of Navigator.Firefox
+# After that search for the window class
+# Then, limit the output to the first class
+# Then the last awk just gets the window id
+# DRAWBACKS: Cannot focus on the last opened window of the application, instead depends on the order that wmctrl returns
+############
+windowIdFromOpenWindows=$(wmctrl -lx | awk '{split($0,allWindows,"\n"); split(allWindows[1],windowEntry," "); split(windowEntry[3],windowClass,"."); print windowEntry[1], windowClass[2]}' | grep $searchString | tail -n 1 | awk '{split($0,a," "); print a[1]}')
+echo $windowIdFromOpenWindows
+if [ -z $windowIdFromOpenWindows ]
 then
+  # If windowId not present, then run alternate command to start app
   exec $commandToRunIfWindowTitleNotFound
+else
+  # If windowId present, then switch focus
+  bspc node -f $windowIdFromOpenWindows
+  if [ $? -eq 1 ]
+  then
+    # If windowId present but error on switching, then run alternate command to start app
+    exec $commandToRunIfWindowTitleNotFound
+  fi
 fi
