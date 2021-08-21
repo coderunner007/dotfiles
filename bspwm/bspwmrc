@@ -1,6 +1,12 @@
 #!/bin/sh
 
-bspc monitor eDP -d I II III IV V bg_tasks
+# bspc monitor eDP -d I II III IV V bg_tasks
+# This will only work for laptop screen.
+# May have to change command for multiple monitors
+# The previous command which created desktops per monitor
+# is not working correctly since eDP changes to eDP1-1 sometimes
+bspc monitor $(bspc query -M -m --names) -d I II III IV V bg_tasks
+
 
 bspc config border_width         1
 bspc config window_gap           5
