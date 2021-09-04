@@ -9,13 +9,16 @@ alt + shift + b
 	~/.config/sxhkd/isWindowOpen "Firefox" firefox
 # File Manager - Thunar
 alt + shift + e
-	~/.config/sxhkd/isWindowOpen "thunar" thunar
+	~/.config/sxhkd/isWindowOpen "Thunar" thunar
 # calculator
 alt + shift + c
 	~/.config/sxhkd/isWindowOpen "Gnome-calculator" gnome-calculator
 # Signal
 alt + shift +  s
 	~/.config/sxhkd/isWindowOpen "Signal" "gtk-launch org.signal.Signal"
+# Spotify
+alt + shift +  m
+	~/.config/sxhkd/isWindowOpen "Spotify" "flatpak run com.spotify.Client"
 # Obsidian
 alt + shift +  o
 	~/.config/sxhkd/isWindowOpen "obsidian" "gtk-launch md.obsidian.Obsidian"
@@ -25,6 +28,9 @@ alt + shift + p
 # VLC
 alt + shift +  v
 	~/.config/sxhkd/isWindowOpen "vlc" "gtk-launch vlc"
+# Editor
+alt + shift +  g
+	~/.config/sxhkd/isWindowOpen "Gvim" "gtk-launch gvim"
 # Mail - Thunderbird
 alt + shift +  x
 	~/.config/sxhkd/isWindowOpen "Thunderbird" "gtk-launch thunderbird"
