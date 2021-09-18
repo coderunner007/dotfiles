@@ -13,6 +13,7 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $PLUGINS/zsh-
 # curl https://raw.githubusercontent.com/trapd00r/zsh-syntax-highlighting-filetypes/master/zsh-syntax-highlighting-filetypes.zsh > $PLUGINS/zsh-syntax-highlighting-filetypes.zsh
 echo 'Git aliases'
 curl https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/plugins/git/git.plugin.zsh > $PLUGINS/git.zsh
+curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/lib/git.zsh > $PLUGINS/git-lib.zsh
 echo 'zsh completions'
 git clone git://github.com/zsh-users/zsh-completions.git $PLUGINS/zsh-completions
 echo 'Auto-suggestion'

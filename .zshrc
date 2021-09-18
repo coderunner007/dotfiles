@@ -108,6 +108,7 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-8.jdk/Content
 ###########
 # Plugins #
 ###########
+source $ZSH_PLUGIN/git-lib.zsh
 source $ZSH_PLUGIN/git.zsh
 source $ZSH_PLUGIN/clipboard.zsh
 source $ZSH_PLUGIN/copyfile.zsh
