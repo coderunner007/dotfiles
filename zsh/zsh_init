@@ -40,6 +40,7 @@ echo '\nInstall the following commands after this script is run:'
 echo '1. highlight (http://www.andre-simon.de/doku/highlight/en/install.php)'
 echo '2. fasd (https://github.com/clvv/fasd/wiki/Installing-via-Package-Managers)'
 echo '3. May have to rebuild zcompdump for zsh-completions (https://github.com/zsh-users/zsh-completions#manual-installation): rm -f ~/.zcompdump; compinit\n'
+echo '4. Press prefix + I (capital i, as in Install) to fetch & install tmux plugins. Refer: https://github.com/tmux-plugins/tpm'
 echo '\n'
 
 # Install themes
@@ -52,3 +53,12 @@ curl https://raw.githubusercontent.com/romkatv/dotfiles-public/master/.purepower
 
 # Created directory for cache (history, fasd)
 mkdir -p $CACHE
+
+echo '\n===================Installation Completed===================\n'
+echo '\nInstall the following commands after this script is run:'
+echo '1. highlight (http://www.andre-simon.de/doku/highlight/en/install.php)'
+echo '2. fasd (https://github.com/clvv/fasd/wiki/Installing-via-Package-Managers)'
+echo '3. May have to rebuild zcompdump for zsh-completions (https://github.com/zsh-users/zsh-completions#manual-installation): rm -f ~/.zcompdump; compinit\n'
+echo '\n=========This is necessary for complete tmux features=======\n'
+echo '4. Press prefix + I (capital i, as in Install) to fetch & install tmux plugins. Refer: https://github.com/tmux-plugins/tpm'
+echo '\n'
