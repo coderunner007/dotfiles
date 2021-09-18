@@ -46,34 +46,13 @@ bindkey '^r' history-incremental-search-backward
 ###########
 # Aliases #
 ###########
-# amzn aliases
-alias bb=brazil-build
-alias bba='brazil-build apollo-pkg'
-alias bre='brazil-runtime-exec'
-alias brc='brazil-recursive-cmd'
-alias bws='brazil ws'
-alias bwsuse='bws use --gitMode -p'
-alias bwscreate='bws create -n'
-alias brc=brazil-recursive-cmd
-alias bbr='brc brazil-build'
-alias bball='brc --allPackages'
-alias bbb='brc --allPackages brazil-build'
-alias bbra='bbr apollo-pkg'
-# dev env aliases
-# alias selenium-server3='java -Dwebdriver.chrome.driver=/Users/alanjos/Documents/cartqa_files/chromedriver -jar ~/Documents/cartqa_files/selenium-server-standalone-3.141.59.jar -port 5555'
-# alias selenium-server='java -Dwebdriver.chrome.driver=/Users/alanjos/Downloads/chromedriver -jar ~/Downloads/selenium-server-standalone-2.53.1.jar -port 5555'
-# alias odin="ssh -fNL 2009:127.0.0.1:2009 alanjos.aka.corp.amazon.com"
-# alias jcd="ssh -fNL 13001:localhost:13001 dev-dsk-alanjos-1b-34afe678.eu-west-1.amazon.com"
-# alias bpath="echo RCXQA_CONFIG_OVERRIDE && brazil-path testbuild.configfarm.brazil-config,config,webapps,ApolloCmd && echo CORAL_CONFIG_PATH && brazil-path run.coralconfig"
-# alias mrdp="ssh -fNL 13390:localhost:3389 dev-dsk-alanjos-1b-34afe678.eu-west-1.amazon.com"
-alias cdesk="ssh clouddesk"
-
 # my aliasies
 alias tmux-reload='tmux source-file ~/.tmux.conf'
 alias tmux="env TERM=xterm-256color tmux"                                       # to support true color in vim in tmux.
 # cat with syntax highlighting
 alias c='highlight -O ansi --force'
 alias cat='c'
+alias vim='nvim'
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/history/history.plugin.zsh 
 alias h='history 0'
 alias hs='history 0 | grep'
