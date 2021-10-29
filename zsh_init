@@ -3,6 +3,9 @@ THEMES=$HOME/.zsh/themes
 CACHE=$HOME/.zsh/cache
 TMUX_PLUGINS=$HOME/.tmux/plugins
 
+present_dir=$(pwd)
+echo "Currently in $present_dir"
+
 # Install plugins
 echo 'Downloading plugins...'
 rm -rf $PLUGINS
@@ -31,8 +34,6 @@ curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/extract/_e
 curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/extract/extract.plugin.zsh > $PLUGINS/extract.zsh
 echo 'Fasd zsh plugin'
 curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/fasd/fasd.plugin.zsh > $PLUGINS/fasd.plugin.zsh
-echo 'Amazon specific plugin'
-(TEMP=`pwd`; cd $ZSH_PLUGIN; ln -s $TEMP/amzn.zsh amzn.zsh;)
 
 echo '\n Installing tmux plugin manager'
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -55,6 +56,14 @@ curl https://raw.githubusercontent.com/romkatv/dotfiles-public/master/.purepower
 # Created directory for cache (history, fasd)
 mkdir -p $CACHE
 
+# Copy the tmux, zsh, tmux, alacritty configs
+echo 'Creating soft links for zsh & tmux config files'
+ln -s $present_dir/.zshrc ~/.zshrc
+ln -s $present_dir/.p10k.zsh ~/.p10k.zsh
+ln -s $present_dir/.tmux.conf ~/.tmux.conf
+mkdir ~/.config/alacritty/
+ln -s $present_dir/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
+
 echo '\n===================Installation Completed===================\n'
 echo '\nInstall the following commands after this script is run:'
 echo '1. highlight (http://www.andre-simon.de/doku/highlight/en/install.php)'
@@ -62,4 +71,7 @@ echo '2. fasd (https://github.com/clvv/fasd/wiki/Installing-via-Package-Managers
 echo '3. May have to rebuild zcompdump for zsh-completions (https://github.com/zsh-users/zsh-completions#manual-installation): rm -f ~/.zcompdump; compinit\n'
 echo '\n=========This is necessary for complete tmux features=======\n'
 echo '4. Press prefix + I (capital i, as in Install) to fetch & install tmux plugins. Refer: https://github.com/tmux-plugins/tpm'
+echo '\n'
+
+echo 'IF CONFIG IS NOT WORKING AS EXPECTED, THEN MAKE SURE THAT THIS IS RUN FROM THE `dotfiles` ROOT DIRECTORY'
 echo '\n'

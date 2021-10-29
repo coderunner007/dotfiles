@@ -52,7 +52,6 @@ alias tmux="env TERM=xterm-256color tmux"                                       
 # cat with syntax highlighting
 alias c='highlight -O ansi --force'
 alias cat='c'
-alias vim='nvim'
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/history/history.plugin.zsh 
 alias h='history 0'
 alias hs='history 0 | grep'
