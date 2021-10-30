@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+TryExec=/usr/lib/Cryptomator/cryptomator
+Exec=/usr/lib/Cryptomator/cryptomator
+Icon=/usr/lib/Cryptomator/cryptomator.svg
+Terminal=false
+Categories=Utility;
+
+Name=Cryptomator
+GenericName=Cryptomator
+Comment=On the fly encryption
+StartupWMClass=Cryptomator
