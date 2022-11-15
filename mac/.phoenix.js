@@ -81,10 +81,6 @@ Key.on(down, moveToAndHalfScreenResizeModifier, function () {
   });
 });
 
-Key.on('t', focusToModifier, function(){
-  App.launch('iTerm').focus();
-})
-
 Key.on('b', focusToModifier, function(){
   App.launch('Firefox').focus();
 })
@@ -93,16 +89,8 @@ Key.on('b', [ ...focusToModifier, alt ], function(){
   App.launch('Google Chrome').focus();
 })
 
-Key.on('g', focusToModifier, function(){
-  App.launch('MacVim').focus();
-})
-
-Key.on('m', focusToModifier, function(){
+Key.on('x', focusToModifier, function(){
   App.launch('Microsoft Outlook').focus();
-})
-
-Key.on('n', focusToModifier, function(){
-  App.launch('Evernote').focus();
 })
 
 Key.on('c', focusToModifier, function(){
@@ -117,10 +105,26 @@ Key.on('s', focusToModifier, function(){
   App.launch('Slack').focus();
 })
 
-Key.on('i', focusToModifier, function(){
-  App.launch('IntelliJ IDEA').focus();
+// Key.on('g', focusToModifier, function(){
+//   App.launch('IntelliJ IDEA').focus();
+// })
+
+Key.on('t', focusToModifier, function(){
+  App.launch('iTerm').focus();
 })
 
 Key.on('q', focusToModifier, function(){
   App.launch('Quip').focus();
+})
+
+Key.on('f', focusToModifier, function(){
+  App.launch('Figma').focus();
+})
+
+Key.on('p', focusToModifier, function(){
+  App.launch('Postman').focus();
+})
+
+Key.on('z', focusToModifier, function(){
+  App.launch('Postman').focus();
 })
