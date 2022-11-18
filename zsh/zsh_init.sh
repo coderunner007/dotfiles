@@ -1,11 +1,19 @@
+#!/bin/bash
+
 PLUGINS=$HOME/.zsh/plugins
 THEMES=$HOME/.zsh/themes
 CACHE=$HOME/.zsh/cache
-TMUX_PLUGINS=$HOME/.tmux/plugins
+SCRIPT_BASE_DIR=$CALLING_SCRIPT_BASE_DIR/zsh
+
+# Cleaning up current plugins, themes & config
+echo 'Cleaning up zsh config...'
+rm -rf $PLUGINS
+rm -rf $THEMES
+rm -rf $HOME/.p10k.zsh
+rm -rf $HOME/.zshrc
 
 # Install plugins
 echo 'Downloading plugins...'
-rm -rf $PLUGINS
 mkdir -p $PLUGINS
 echo 'Syntax highlighting for commands'
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $PLUGINS/zsh-syntax-highlighting
@@ -28,27 +36,20 @@ curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/copydir/co
 echo 'Extract any compressed file'
 curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/extract/_extract > $PLUGINS/_extract
 curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/extract/extract.plugin.zsh > $PLUGINS/extract.zsh
-echo 'Fasd zsh plugin'
-curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/fasd/fasd.plugin.zsh > $PLUGINS/fasd.plugin.zsh
-echo 'Amazon specific plugin'
-(TEMP=`pwd`; cd $ZSH_PLUGIN; ln -s $TEMP/amzn.zsh amzn.zsh;)
-
-echo '\n Installing tmux plugin manager'
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-echo '\nInstall the following commands after this script is run:'
-echo '1. highlight (http://www.andre-simon.de/doku/highlight/en/install.php)'
-echo '2. fasd (https://github.com/clvv/fasd/wiki/Installing-via-Package-Managers)'
-echo '3. May have to rebuild zcompdump for zsh-completions (https://github.com/zsh-users/zsh-completions#manual-installation): rm -f ~/.zcompdump; compinit\n'
-echo '\n'
 
 # Install themes
 echo 'Downloading theme ...'
 echo 'Downloading and applying powerlevel10k theme...'
-rm -rf $THEMES
 mkdir -p $THEMES
 git clone https://github.com/romkatv/powerlevel10k.git $THEMES/powerlevel10k
 curl https://raw.githubusercontent.com/romkatv/dotfiles-public/master/.purepower > $THEMES/.purepower
 
+echo '\nSoftlinking config files'
+(ln -s $SCRIPT_BASE_DIR/.p10k.zsh $HOME/.p10k.zsh;)
+(ln -s $SCRIPT_BASE_DIR/.zshrc $HOME/.zshrc;)
+
 # Created directory for cache (history, fasd)
 mkdir -p $CACHE
+
+echo '\n May have to rebuild zcompdump for zsh-completions (https://github.com/zsh-users/zsh-completions#manual-installation): rm -f ~/.zcompdump; compinit\n'
+echo '\n'

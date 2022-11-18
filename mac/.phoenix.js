@@ -105,9 +105,9 @@ Key.on('s', focusToModifier, function(){
   App.launch('Slack').focus();
 })
 
-// Key.on('g', focusToModifier, function(){
-//   App.launch('IntelliJ IDEA').focus();
-// })
+Key.on('g', focusToModifier, function(){
+  App.launch('IntelliJ IDEA').focus();
+})
 
 Key.on('t', focusToModifier, function(){
   App.launch('iTerm').focus();
@@ -121,10 +121,6 @@ Key.on('f', focusToModifier, function(){
   App.launch('Figma').focus();
 })
 
-Key.on('p', focusToModifier, function(){
-  App.launch('Postman').focus();
-})
-
 Key.on('z', focusToModifier, function(){
-  App.launch('Postman').focus();
+  App.launch('Insomnia').focus();
 })
