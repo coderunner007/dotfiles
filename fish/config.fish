@@ -8,6 +8,16 @@ source $COMMON_ALIASES/common_aliases.sh
 source $COMMON_ALIASES/amzn.sh
 
 ################
+# Amazon Cards #
+################
+bash -c "source $HOME/.cardcli_profile"
+set PATH $PATH /Users/alanjos/aws-cli/bin
+# Hack to set the node & npm executables in path
+for dir in $HOME/.nvm/versions/node/*/bin
+  set PATH $dir $PATH
+end
+
+################
 # Key bindings #
 ################
 function hybrid_bindings --description "Vi-style bindings that inherit emacs-style bindings in all modes"

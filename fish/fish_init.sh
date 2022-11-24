@@ -26,5 +26,6 @@ fish -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/
 fish -c "fisher install IlanCosman/tide"
 fish -c "fisher install PatrickF1/fzf.fish"
 fish -c "fisher install jhillyerd/plugin-git"
+fish -c "fisher install FabioAntunes/fish-nvm edc/bass"
 echo 'Configure look and feel of terminal prompt'
 fish -c "tide configure"

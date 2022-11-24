@@ -109,6 +109,10 @@ Key.on('g', focusToModifier, function(){
   App.launch('IntelliJ IDEA').focus();
 })
 
+Key.on('g', [ ...focusToModifier, alt ], function(){
+  App.launch('Visual Studio Code').focus();
+})
+
 Key.on('t', focusToModifier, function(){
   App.launch('iTerm').focus();
 })
