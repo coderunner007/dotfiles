@@ -1,0 +1,134 @@
+{
+  "policy": {
+    "DEFAULT": {
+      "capabilities": [
+        "frame",
+        "fetch",
+        "noscript",
+        "other"
+      ],
+      "temp": false
+    },
+    "TRUSTED": {
+      "capabilities": [
+        "script",
+        "object",
+        "media",
+        "frame",
+        "font",
+        "webgl",
+        "fetch",
+        "ping",
+        "noscript",
+        "unchecked_css",
+        "other"
+      ],
+      "temp": false
+    },
+    "UNTRUSTED": {
+      "capabilities": [],
+      "temp": false
+    },
+    "sites": {
+      "trusted": [
+        "§:addons.mozilla.org",
+        "§:bootstrapcdn.com",
+        "§:mozilla.net",
+        "§:noscript.net",
+        "§:github.com",
+        "§:githubassets.com",
+        "§:stackoverflow.com",
+        "§:sstatic.net",
+        "§:wikipedia.org",
+        "§:duckduckgo.com",
+        "§:wikimedia.org",
+        "§:askubuntu.com",
+        "§:superuser.com",
+        "§:gitlab.com",
+        "§:quora.com",
+        "§:quoracdn.net",
+        "§:svelte.dev",
+        "§:atlassian.com",
+        "§:atl-paas.net",
+        "§:bitbucket.org",
+        "localhost",
+        "§:caravanmagazine.in",
+        "§:alanj.gitlab.io",
+        "§:amazon.in",
+        "§:mullvad.net",
+        "§:hdfcbank.com",
+        "§:gnome.org",
+        "§:reddit.com",
+        "§:redditstatic.com",
+        "§:coursera.org",
+        "§:flathub.org",
+        "§:citibank.co.in",
+        "§:nitter.net",
+        "§:discord.com",
+        "§:discordapp.com",
+        "§:cleartax.in",
+        "§:cleartax-cdn.com",
+        "§:bigbasket.com",
+        "§:bbassets.com",
+        "§:tailwindcss.com",
+        "§:ycombinator.com",
+        "§:feedly.com",
+        "§:archive.org",
+        "§:ssl-images-amazon.com",
+        "§:razorpay.com",
+        "§:recaptcha.net"
+      ],
+      "untrusted": [],
+      "custom": {
+        "§:facebook.com": {
+          "capabilities": [
+            "fetch",
+            "noscript",
+            "script",
+            "unchecked_css"
+          ],
+          "temp": false
+        },
+        "§:fbcdn.net": {
+          "capabilities": [
+            "fetch",
+            "noscript",
+            "script",
+            "unchecked_css"
+          ],
+          "temp": false
+        },
+        "§:privacyguides.org": {
+          "capabilities": [
+            "script",
+            "font",
+            "noscript",
+            "unchecked_css",
+            "media"
+          ],
+          "temp": false
+        }
+      }
+    },
+    "enforced": true,
+    "autoAllowTop": false
+  },
+  "local": {
+    "debug": false,
+    "showCtxMenuItem": true,
+    "showCountBadge": true,
+    "showFullAddresses": false,
+    "amnesticUpdates": false,
+    "storage": "local",
+    "uuid": "17b800b7-5d4c-4165-9b9f-ec21897a406a"
+  },
+  "sync": {
+    "global": false,
+    "xss": true,
+    "cascadeRestrictions": false,
+    "overrideTorBrowserPolicy": false,
+    "clearclick": true,
+    "storage": "sync"
+  },
+  "xssUserChoices": {}
+}

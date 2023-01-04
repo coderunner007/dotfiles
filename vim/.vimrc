@@ -49,6 +49,8 @@ Plugin 'vim-airline/vim-airline-themes'
 " Plugin 'altercation/vim-colors-solarized'
 " Plugin 'altercation/solarized'
 Plugin 'joshdick/onedark.vim'
+" FOR RUST
+Plugin 'rust-lang/rust.vim'
 call vundle#end()
 " }}}
 

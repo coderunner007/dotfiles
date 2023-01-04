@@ -150,7 +150,16 @@ fpath=($ZSH_PLUGIN/zsh-completions/src $fpath)
 # bindkey -M vicmd 'k' history-substring-search-up
 # bindkey -M vicmd 'j' history-substring-search-down
 
+# For Rust
+source $HOME/.cargo/env
+
 # For node
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# From https://wiki.archlinux.org/title/Tmux#Start_tmux_on_every_shell_login
+# To start tmux on every terminal window
+if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ] && [ -z "${TMUX}" ]; then
+  ta
+fi
