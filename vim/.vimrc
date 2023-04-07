@@ -38,7 +38,7 @@ Plugin 'tpope/vim-fugitive'
 " Handy actions
 Plugin 'tpope/vim-unimpaired'
 " Colored color codes
-" Plugin 'chrisbra/Colorizer'
+Plugin 'chrisbra/Colorizer'
 " Show space with |
 " Plugin 'Yggdroot/indentLine'
 " show git-diff in gutter
