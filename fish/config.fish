@@ -31,6 +31,14 @@ hybrid_bindings
 fish_vi_key_bindings
 set -g fish_escape_delay_ms 10
 
+#################
+# Other options #
+#################
+# Show man pages with colors
+# https://github.com/sharkdp/bat#man
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANROFFOPT="-c"
+
 ################
 #  Initialize  #
 ################
