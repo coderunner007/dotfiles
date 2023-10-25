@@ -17,8 +17,8 @@ Plugin 'scrooloose/nerdtree'
 " Undo tree
 " Plugin 'mbbill/undotree'
 " Syntax checking
-" Plugin 'w0rp/ale'
 Plugin 'sheerun/vim-polyglot'
+Plugin 'dense-analysis/ale'
 " Plugin 'aming/vim-mason'
 " Plugin 'pietalin/vim-jsx-typescript'
 " TS vim plugin
@@ -49,8 +49,6 @@ Plugin 'vim-airline/vim-airline-themes'
 " Plugin 'altercation/vim-colors-solarized'
 " Plugin 'altercation/solarized'
 Plugin 'joshdick/onedark.vim'
-" FOR RUST
-Plugin 'rust-lang/rust.vim'
 call vundle#end()
 " }}}
 
@@ -92,15 +90,15 @@ set smartcase                                                                 " 
 " }}}
 
 " EXPERMIMENTAL {{{
-set tags=tags                                                                 " look for ctags file
+" set tags=tags                                                                 " look for ctags file
 " Change cursor in VIM https://stackoverflow.com/a/42118416
 " let &t_SI = "\e[6 q"
 " let &t_EI = "\e[2 q"
 
-autocmd! BufRead,BufNewFile *.m setfiletype mason
-autocmd! BufRead,BufNewFile *.mi setfiletype mason
-au BufRead *.m :set filetype=mason
-au BufRead *.mi :set filetype=mason
+" autocmd! BufRead,BufNewFile *.m setfiletype mason
+" autocmd! BufRead,BufNewFile *.mi setfiletype mason
+" au BufRead *.m :set filetype=mason
+" au BufRead *.mi :set filetype=mason
 " }}}
 
 " WHITESPACE {{{
@@ -207,19 +205,22 @@ let NERDTreeHijackNetrw=1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_fix_on_save = 1
 let g:ale_sign_error = 'x'
-let g:ale_completion_enabled = 1
 let g:ale_sign_warning = '-'
+let g:ale_linters_explicit = 1
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'typescript': ['eslint', 'tsserver'],
+\   'typescriptreact': ['eslint', 'tsserver'],
+\   'javascriptreact': ['eslint'],
+\}
 let g:ale_fixers = {
-\   'typescript': [
-\       'tslint',
-\   ],
-\   'typescript.jsx': [
-\       'tslint',
-\   ],
-\   'javascript': [
-\      'eslint',
-\   ]
+\   'javascript': ['prettier'],
+\   'typescript': ['prettier'],
+\   'javascriptreact': ['prettier'],
+\   'typescriptreact': ['prettier'],
+\   'css': ['prettier'],
 \}
 " }}}
 
@@ -256,29 +257,3 @@ let g:airline_theme='onedark'
 
 " }}}
 
-" STATUS LINE SETTINGS {{{
-" function! GitBranch()
-"   return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-" endfunction
-
-" function! StatuslineGit()
-"   let l:branchname = GitBranch()
-"   return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
-" endfunction
-
-" set statusline=
-" set statusline+=%#PmenuSel#
-" set statusline+=%{StatuslineGit()}
-" set statusline+=%#LineNr#
-" set statusline+=\ %t
-" " set statusline+=%m\
-" set statusline+=%=
-" set statusline+=%#CursorColumn#
-" " set statusline+=\ %y
-" set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-" set statusline+=\[%{&fileformat}\]
-" set statusline+=\ %p%%:%c
-" }}}
-
-set modelines=1
-" vim:foldmethod=marker:foldlevel=0

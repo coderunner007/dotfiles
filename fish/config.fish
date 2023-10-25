@@ -1,4 +1,4 @@
-set PATH $HOME/.local/bin $HOME/bin /usr/local/bin /usr/bin /bin /usr/sbin /sbin $HOME/.fzf/bin
+set PATH $HOME/.local/bin $HOME/bin /usr/local/bin /usr/bin /bin /usr/sbin /sbin $HOME/.fzf/bin $HOME/.node_modules/bin
 set COMMON_ALIASES $HOME/.config/alias
 
 ###########
