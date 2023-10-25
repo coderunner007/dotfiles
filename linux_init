@@ -15,6 +15,8 @@ mkdir ~/.vim
 ln -s $present_dir/vim/colors/ ~/.vim/colors
 echo "Cloning and Installing Vundle"
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-echo "Vundle Installation complete"
 echo "Installing plugins"
 vim +PluginInstall +qall
+nvim +"CocInstall coc-prettier coc-tsserver coc-eslint"
+cp ./vim/coc-settings.json ~/.config/nvim/
+cp ./vim/init.vim ~/.config/nvim/
