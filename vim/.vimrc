@@ -1,55 +1,64 @@
 set encoding=utf-8
 scriptencoding utf-8
 
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " PLUGINS IMPORT{{{
 set nocompatible
 filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin()
 
-Plugin 'VundleVim/Vundle.vim'
+Plug 'VundleVim/Vundle.vim'
 " Fuzzy finder
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 " File window
-Plugin 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
 " Undo tree
-" Plugin 'mbbill/undotree'
+" Plug 'mbbill/undotree'
 " Syntax checking
-Plugin 'sheerun/vim-polyglot'
-Plugin 'dense-analysis/ale'
-" Plugin 'aming/vim-mason'
-" Plugin 'pietalin/vim-jsx-typescript'
+Plug 'sheerun/vim-polyglot'
+" Plug 'dense-analysis/ale'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'vim-test/vim-test'
+Plug 'preservim/vimux'
+" Plug 'aming/vim-mason'
+" Plug 'pietalin/vim-jsx-typescript'
 " TS vim plugin
-" Plugin 'Quramy/tsuquyomi'
+" Plug 'Quramy/tsuquyomi'
 " Close brackets
-Plugin 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 " Close html tags
-" Plugin 'alvan/vim-closetag'
+" Plug 'alvan/vim-closetag'
 " Custom motions.
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 " Repeat tpope commands with .
-Plugin 'tpope/vim-repeat'
+Plug 'tpope/vim-repeat'
 " Comments autocompletion
-Plugin 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary'
 " Git helpers
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 " Handy actions
-Plugin 'tpope/vim-unimpaired'
+Plug 'tpope/vim-unimpaired'
 " Colored color codes
-Plugin 'chrisbra/Colorizer'
+Plug 'chrisbra/Colorizer'
 " Show space with |
-" Plugin 'Yggdroot/indentLine'
+" Plug 'Yggdroot/indentLine'
 " show git-diff in gutter
-Plugin 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 " statusline: airline
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-" Plugin 'altercation/vim-colors-solarized'
-" Plugin 'altercation/solarized'
-Plugin 'joshdick/onedark.vim'
-call vundle#end()
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Plug 'altercation/vim-colors-solarized'
+" Plug 'altercation/solarized'
+Plug 'joshdick/onedark.vim'
+call plug#end()
 " }}}
 
 " COLORSCHEME {{{
@@ -193,35 +202,25 @@ set guioptions-=L  "remove scrollbar-left
 " }}}
 
 " PLUGIN SETTINGS {{{
-" indentLine {{{
-let g:indentLine_char = '|'
+" " indentLine {{{
+" let g:indentLine_char = '|'
+" " }}}
+
+" vim-test {{{
+let test#strategy = "vimux"
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+" nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+" nmap <silent> <leader>g :TestVisit<CR>
 " }}}
 
 " NERDTree {{{
 let NERDTreeHijackNetrw=1
 " }}}
 
-" ALE {{{
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_fix_on_save = 1
-let g:ale_sign_error = 'x'
-let g:ale_sign_warning = '-'
-let g:ale_linters_explicit = 1
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'typescript': ['eslint', 'tsserver'],
-\   'typescriptreact': ['eslint', 'tsserver'],
-\   'javascriptreact': ['eslint'],
-\}
-let g:ale_fixers = {
-\   'javascript': ['prettier'],
-\   'typescript': ['prettier'],
-\   'javascriptreact': ['prettier'],
-\   'typescriptreact': ['prettier'],
-\   'css': ['prettier'],
-\}
+" COC {{{
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " }}}
 
 " FZF {{{
