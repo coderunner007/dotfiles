@@ -220,7 +220,15 @@ let NERDTreeHijackNetrw=1
 " }}}
 
 " COC {{{
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
 inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+nnoremap <silent> K :call ShowDocumentation()<CR>
 " }}}
 
 " FZF {{{
