@@ -34,6 +34,7 @@ Key.on('f', [ctrl, shift, cmd], function () {
 });
 
 Key.on(left, moveToAndHalfScreenResizeModifier, function () {
+  // console.log(Screen.all().map(s => s.windows().length))
   var currentContext = getCurrentContext();
   currentContext.focusedWindow.setTopLeft({
     x: 0,
@@ -89,18 +90,38 @@ Key.on('b', [ ...focusToModifier, alt ], function(){
   App.launch('Google Chrome').focus();
 })
 
+Key.on('x', focusToModifier, function(){
+  App.launch('Mail').focus();
+})
+
+Key.on('x', [ ...focusToModifier, alt ], function(){
+  App.launch('Calendar').focus();
+})
+
+Key.on('r', focusToModifier, function(){
+  App.launch('Postman').focus();
+})
+
 Key.on('e', focusToModifier, function(){
   App.launch('Finder').focus();
 })
 
-Key.on('g', [ ...focusToModifier, alt ], function(){
-  App.launch('Visual Studio Code').focus();
+Key.on('s', focusToModifier, function(){
+  App.launch('Slack').focus();
+})
+
+Key.on('s', [ ...focusToModifier, alt ], function(){
+  App.launch('Spotify').focus();
+})
+
+Key.on('g', focusToModifier, function(){
+  App.launch('Cursor').focus();
 })
 
 Key.on('t', focusToModifier, function(){
   App.launch('iTerm').focus();
 })
 
-Key.on('t', [ ...focusToModifier, alt ], function(){
-  App.launch('Google Tasks').focus();
+Key.on('z', focusToModifier, function(){
+  App.launch('zoom.us').focus();
 })

@@ -1,4 +1,6 @@
 set PATH /Users/alanjos/.local/bin /Users/alanjos/bin /Users/alanjos/.toolbox/bin /opt/homebrew/bin /opt/homebrew/sbin /usr/local/bin /usr/bin /bin /usr/sbin /sbin /Users/alanjos/Library/Android/sdk/emulator /Users/alanjos/Library/Android/sdk/tools /Users/alanjos/.fzf/bin /opt/homebrew/opt/gnu-getopt/bin $PATH
+set PUPPETEER_EXECUTABLE_PATH /opt/homebrew/bin/chromium
+set PUPPETEER_SKIP_CHROMIUM_DOWNLOAD 1
 set COMMON_ALIASES $HOME/.config/alias
 
 ###########

@@ -86,6 +86,12 @@ echo 'Adding common aliases'
 mkdir -p $COMMON_ALIASES
 ln -s $CALLING_SCRIPT_BASE_DIR/sh/amzn.sh $COMMON_ALIASES/amzn.sh
 ln -s $CALLING_SCRIPT_BASE_DIR/sh/common_aliases.sh $COMMON_ALIASES/common_aliases.sh
+echo 'Karbiner elements configre'
+rm -rf $HOME/.config/karabiner/karabiner.json
+ln -s $CALLING_SCRIPT_BASE_DIR/mac/karabiner/karabiner.json $HOME/.config/karabiner/karabiner.json
+echo 'Phoenix configure'
+rm -rf $HOME/.phoenix.js
+ln -s $CALLING_SCRIPT_BASE_DIR/mac/.phoenix.js $HOME/.phoenix.js
 
 if [[ $f = y ]]; then
   echo "Initializing fish shell"
