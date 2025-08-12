@@ -89,24 +89,8 @@ Key.on('b', [ ...focusToModifier, alt ], function(){
   App.launch('Google Chrome').focus();
 })
 
-Key.on('x', focusToModifier, function(){
-  App.launch('Microsoft Outlook').focus();
-})
-
-Key.on('c', focusToModifier, function(){
-  App.launch('Amazon Chime').focus();
-})
-
 Key.on('e', focusToModifier, function(){
   App.launch('Finder').focus();
-})
-
-Key.on('s', focusToModifier, function(){
-  App.launch('Slack').focus();
-})
-
-Key.on('g', focusToModifier, function(){
-  App.launch('IntelliJ IDEA').focus();
 })
 
 Key.on('g', [ ...focusToModifier, alt ], function(){
@@ -117,14 +101,6 @@ Key.on('t', focusToModifier, function(){
   App.launch('iTerm').focus();
 })
 
-Key.on('q', focusToModifier, function(){
-  App.launch('Quip').focus();
-})
-
-Key.on('f', focusToModifier, function(){
-  App.launch('Figma').focus();
-})
-
-Key.on('z', focusToModifier, function(){
-  App.launch('Insomnia').focus();
+Key.on('t', [ ...focusToModifier, alt ], function(){
+  App.launch('Google Tasks').focus();
 })
