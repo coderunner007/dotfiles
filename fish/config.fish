@@ -20,6 +20,13 @@ hybrid_bindings
 fish_vi_key_bindings
 set -g fish_escape_delay_ms 10
 
+# For default case-sensitive sorting
+# on Mac. Mac has BSD-sort which is different
+# from GNU-sort. BSD-sort has case-insesitive sorting by
+# default whereas GNU-sort has case-sensitive sorting by
+# default. This is one of the ways in which the BSD version
+# can replicate the GNU-sort version's case-sensitivity
+set -x LC_COLLATE C
 ################
 #  Initialize  #
 ################
@@ -28,3 +35,13 @@ zoxide init fish | source
 if status is-interactive
 # Commands to run in interactive sessions can go here
 end
+
+#####################
+#  FZF keybindings  #
+#####################
+fzf_configure_bindings \
+  --directory=\cf \
+  --git_log=\cg \
+  --git_status=\cs \
+  --processes=\cx
+
