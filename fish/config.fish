@@ -11,13 +11,13 @@ source $COMMON_ALIASES/common_aliases.sh
 ################
 function hybrid_bindings --description "Vi-style bindings that inherit emacs-style bindings in all modes"
   for mode in default insert visual
-    bind -M $mode -k nul end-of-line accept-autosuggestion
+    bind -M $mode ctrl-space accept-autosuggestion
     bind -M $mode \cp up-or-search
     bind -M $mode \cn down-or-search
   end
 end
-hybrid_bindings
 fish_vi_key_bindings
+hybrid_bindings
 set -g fish_escape_delay_ms 10
 
 # For default case-sensitive sorting

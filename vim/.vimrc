@@ -275,5 +275,5 @@ let g:airline_theme='onedark'
 " set statusline+=\ %p%%:%c
 " }}}
 
-set modelines=1
+" set modelines=1
 " vim:foldmethod=marker:foldlevel=0
