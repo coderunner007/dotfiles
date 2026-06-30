@@ -1,43 +1,45 @@
 #!/bin/bash
+# Read all of stdin into a variable
 input=$(cat)
 
-MODEL=$(echo "$input" | jq -r '.model.display_name // "unknown"')
-CONTEXT_SIZE=$(echo "$input" | jq -r '.context_window.context_window_size // 0')
-USAGE=$(echo "$input" | jq '.context_window.current_usage // empty')
+# Extract fields with jq, "// 0" provides fallback for null
+MODEL=$(echo "$input" | jq -r '.model.display_name')
+PCT=$(echo "$input" | jq -r '.context_window.used_percentage // 0' | cut -d. -f1)
 
-# Directory and git branch
-DIR="${PWD/#$HOME/~}"
-GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+# Build progress bar: printf -v creates a run of spaces, then
+# ${var// /▓} replaces each space with a block character
+BAR_WIDTH=10
+FILLED=$((PCT * BAR_WIDTH / 100))
+EMPTY=$((BAR_WIDTH - FILLED))
+BAR=""
+[ "$FILLED" -gt 0 ] && printf -v FILL "%${FILLED}s" && BAR="${FILL// /▓}"
+[ "$EMPTY" -gt 0 ] && printf -v PAD "%${EMPTY}s" && BAR="${BAR}${PAD// /░}"
 
-# Build location segment
-if [ -n "$GIT_BRANCH" ]; then
-    LOCATION="[$DIR][$GIT_BRANCH]"
+# Model cost & duration
+COST=$(echo "$input" | jq -r '.cost.total_cost_usd // 0')
+DURATION_MS=$(echo "$input" | jq -r '.cost.total_duration_ms // 0')
+
+COST_FMT=$(printf '$%.2f' "$COST")
+DURATION_SEC=$((DURATION_MS / 1000))
+MINS=$((DURATION_SEC / 60))
+SECS=$((DURATION_SEC % 60))
+
+# Git status and directory
+DIR=$(echo "$input" | jq -r '.workspace.current_dir')
+GREEN='\033[32m'
+YELLOW='\033[33m'
+RESET='\033[0m'
+
+if git rev-parse --git-dir > /dev/null 2>&1; then
+    BRANCH=$(git branch --show-current 2>/dev/null)
+    STAGED=$(git diff --cached --numstat 2>/dev/null | wc -l | tr -d ' ')
+    MODIFIED=$(git diff --numstat 2>/dev/null | wc -l | tr -d ' ')
+
+    GIT_STATUS=""
+    [ "$STAGED" -gt 0 ] && GIT_STATUS="${GREEN}+${STAGED}${RESET}"
+    [ "$MODIFIED" -gt 0 ] && GIT_STATUS="${GIT_STATUS}${YELLOW}~${MODIFIED}${RESET}"
+
+    echo -e "[$MODEL] [${DIR##*/} | $BRANCH $GIT_STATUS] | $BAR $PCT% | $COST_FMT | ${MINS}m ${SECS}s"
 else
-    LOCATION="[$DIR]"
+    echo -e "[$MODEL] [${DIR##*/}] | $BAR $PCT% | $COST_FMT | ${MINS}m ${SECS}s"
 fi
-
-# Token and context stats
-TOKENS_OUT="? tokens"
-CTX_PCT_OUT="?% ctx"
-REMAINING_OUT="? left"
-
-if [ -n "$USAGE" ] && [ "$CONTEXT_SIZE" != "0" ] && [ "$CONTEXT_SIZE" != "null" ]; then
-    CURRENT=$(echo "$USAGE" | jq '.input_tokens + .cache_creation_input_tokens + .cache_read_input_tokens')
-    if [ -n "$CURRENT" ] && [ "$CURRENT" != "null" ]; then
-        TOKENS_K=$((CURRENT / 1000))
-        if [ "$TOKENS_K" -gt 0 ]; then
-            TOKENS_OUT="${TOKENS_K}k tokens"
-        else
-            TOKENS_OUT="${CURRENT} tokens"
-        fi
-
-        PERCENT=$((CURRENT * 100 / CONTEXT_SIZE))
-        REMAINING=$((CONTEXT_SIZE - CURRENT))
-        REMAINING_K=$((REMAINING / 1000))
-
-        CTX_PCT_OUT="${PERCENT}% ctx"
-        REMAINING_OUT="${REMAINING_K}k left"
-    fi
-fi
-
-echo "${LOCATION} | ${MODEL} | ${TOKENS_OUT} | ${CTX_PCT_OUT} | ${REMAINING_OUT}"
