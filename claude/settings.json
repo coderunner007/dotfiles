@@ -2,7 +2,7 @@
   "permissions": {
     "defaultMode": "plan"
   },
-  "model": "haiku",
+  "model": "opus",
   "hooks": {
     "SessionStart": [
       {

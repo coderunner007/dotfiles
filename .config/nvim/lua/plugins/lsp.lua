@@ -48,8 +48,9 @@ return {
           },
         },
 
-        -- TypeScript / JS
+        -- Deno: only attach in real Deno projects (deno.json present)
         denols = {
+          root_dir = util.root_pattern("deno.json", "deno.jsonc"),
           enable = true,
           suggest = {
             imports = {
@@ -58,6 +59,21 @@ return {
               }
             }
           }
+        },
+
+        -- TypeScript / JS: node projects (package.json), not Deno
+        ts_ls = {
+          root_dir = util.root_pattern("package.json", "tsconfig.json"),
+          single_file_support = false,
+        },
+
+        -- ESLint: reads the repo's .eslintrc.* (this surfaces repo lint rules)
+        eslint = {
+          root_dir = util.root_pattern(
+            ".eslintrc", ".eslintrc.js", ".eslintrc.cjs",
+            ".eslintrc.json", ".eslintrc.yaml", ".eslintrc.yml",
+            "eslint.config.js", "eslint.config.mjs", "eslint.config.cjs"
+          ),
         },
 
         -- Extras (optional)
