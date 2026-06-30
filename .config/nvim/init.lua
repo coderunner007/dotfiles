@@ -89,3 +89,35 @@ vim.keymap.set("n", "th", "<cmd>tabprevious<CR>", { noremap = true, silent = tru
 vim.keymap.set("n", "tl", "<cmd>tabnext<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "tq", "<cmd>tabclose<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "to", "<cmd>tabedit<CR>", { noremap = true, silent = true }) -- = :tabe
+
+-- Copy filepath + line number(s) to system clipboard ────
+local function copy_location_to_clipboard()
+  local filepath = vim.fn.expand("%:p")
+  local mode = vim.fn.mode()
+  local line_start, line_end
+
+  if mode == "v" or mode == "V" or mode == "\22" then
+    -- Visual block mode (\22 = Ctrl+V)
+    line_start = vim.fn.line("v")
+    line_end   = vim.fn.line(".")
+    if line_start > line_end then
+      line_start, line_end = line_end, line_start
+    end
+  else
+    -- Normal mode: just current line
+    line_start = vim.fn.line(".")
+    line_end   = line_start
+  end
+
+  local text = line_start == line_end
+    and string.format("%s:%d", filepath, line_start)
+    or  string.format("%s:L%d-L%d", filepath, line_start, line_end)
+
+  vim.fn.setreg("+", text)
+  vim.notify("Copied: " .. text, vim.log.levels.INFO)
+end
+
+vim.keymap.set({ "n", "v" }, "<leader>c", copy_location_to_clipboard, {
+  desc = "Copy filepath + line(s) to clipboard",
+  silent = true,
+})
