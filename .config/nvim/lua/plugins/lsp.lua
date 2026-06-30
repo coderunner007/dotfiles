@@ -3,6 +3,9 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
+      local lspconfig = require("lspconfig")
+      local util = require("lspconfig.util")
+
       -- Diagnostics UI
       vim.diagnostic.config({
         virtual_text = true,
@@ -123,11 +126,11 @@ return {
       -- Wire up servers
       -- For every LSP server, add the relevant configration as mentioned above
       local function xetup(name, cfg)
-        if not vim.lsp.config[name] then return end
+        if not lspconfig[name] then return end
         cfg = cfg or {}
         cfg.on_attach = on_attach
         -- cfg.capabilities = vim.tbl_deep_extend("force", {}, capabilities, cfg.capabilities or {})
-        vim.lsp.config[name].setup(cfg)
+        lspconfig[name].setup(cfg)
       end
 
       for name, cfg in pairs(servers) do
