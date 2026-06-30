@@ -1,0 +1,11 @@
+{
+  "model": "sonnet",
+  "statusLine": {
+    "type": "command",
+    "command": "bash /Users/ajoseph/.claude/statusline.sh"
+  },
+  "effortLevel": "medium",
+  "autoMemoryEnabled": false,
+  "theme": "dark-ansi",
+  "editorMode": "vim"
+}
