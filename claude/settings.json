@@ -1,5 +1,8 @@
 {
   "model": "haiku",
+  "permissions": {
+    "defaultMode": "plan"
+  },
   "statusLine": {
     "type": "command",
     "command": "bash /Users/ajoseph/.claude/statusline.sh"
