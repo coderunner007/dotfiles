@@ -1,7 +1,39 @@
 {
-  "model": "haiku",
   "permissions": {
     "defaultMode": "plan"
+  },
+  "model": "haiku",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/ajoseph/.claude/tmux-session-name.sh start"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/ajoseph/.claude/tmux-session-name.sh rename"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/ajoseph/.claude/tmux-session-name.sh stop"
+          }
+        ]
+      }
+    ]
   },
   "statusLine": {
     "type": "command",

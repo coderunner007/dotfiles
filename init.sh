@@ -92,6 +92,11 @@ ln -s $CALLING_SCRIPT_BASE_DIR/mac/karabiner/karabiner.json $HOME/.config/karabi
 echo 'Phoenix configure'
 rm -rf $HOME/.phoenix.js
 ln -s $CALLING_SCRIPT_BASE_DIR/mac/.phoenix.js $HOME/.phoenix.js
+echo 'Claude Code setup'
+mkdir -p $HOME/.claude
+ln -s $CALLING_SCRIPT_BASE_DIR/claude/settings.json $HOME/.claude/settings.json
+ln -s $CALLING_SCRIPT_BASE_DIR/claude/statusline.sh $HOME/.claude/statusline.sh
+ln -s $CALLING_SCRIPT_BASE_DIR/claude/tmux-session-name.sh $HOME/.claude/tmux-session-name.sh
 
 if [[ $f = y ]]; then
   echo "Initializing fish shell"
