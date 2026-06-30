@@ -127,9 +127,10 @@ return {
         if client.server_capabilities.codeLensProvider then
           local grp = vim.api.nvim_create_augroup("LspCodeLens_" .. buf, { clear = true })
           vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-            group = grp, buffer = buf, callback = vim.lsp.codelens.refresh,
+            group = grp, buffer = buf,
+            callback = function() vim.lsp.codelens.refresh({ bufnr = buf }) end,
           })
-          vim.lsp.codelens.refresh()
+          vim.lsp.codelens.refresh({ bufnr = buf })
         end
       end
 
