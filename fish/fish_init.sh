@@ -19,13 +19,12 @@ mkdir -p $FISH_CONFIG 2> /dev/null
 # Use -f option to create soft link because fish keeps creating config files
 echo 'Softlinking config files'
 ln -sf $SCRIPT_BASE_DIR/config.fish $FISH_CONFIG_BASE/config.fish
+ln -sf $SCRIPT_BASE_DIR/fish_plugins $FISH_CONFIG_BASE/fish_plugins
 
 # Install plugins
-echo 'Installing fundle plugin manager'
+echo 'Installing fish plugin manager'
 fish -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
-fish -c "fisher install IlanCosman/tide"
-fish -c "fisher install PatrickF1/fzf.fish"
-fish -c "fisher install jhillyerd/plugin-git"
-fish -c "fisher install FabioAntunes/fish-nvm edc/bass"
+echo 'Installing fish plugins'
+fish -c "fisher install"
 echo 'Configure look and feel of terminal prompt'
 fish -c "tide configure"
