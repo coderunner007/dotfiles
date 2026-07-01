@@ -3,9 +3,6 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      local lspconfig = require("lspconfig")
-      local util = require("lspconfig.util")
-
       -- Diagnostics UI
       vim.diagnostic.config({
         virtual_text = true,
@@ -50,7 +47,7 @@ return {
 
         -- Deno: only attach in real Deno projects (deno.json present)
         denols = {
-          root_dir = util.root_pattern("deno.json", "deno.jsonc"),
+          root_markers = { "deno.json", "deno.jsonc" },
           enable = true,
           suggest = {
             imports = {
@@ -63,17 +60,17 @@ return {
 
         -- TypeScript / JS: node projects (package.json), not Deno
         ts_ls = {
-          root_dir = util.root_pattern("package.json", "tsconfig.json"),
+          root_markers = { "package.json", "tsconfig.json" },
           single_file_support = false,
         },
 
         -- ESLint: reads the repo's .eslintrc.* (this surfaces repo lint rules)
         eslint = {
-          root_dir = util.root_pattern(
+          root_markers = {
             ".eslintrc", ".eslintrc.js", ".eslintrc.cjs",
             ".eslintrc.json", ".eslintrc.yaml", ".eslintrc.yml",
             "eslint.config.js", "eslint.config.mjs", "eslint.config.cjs"
-          ),
+          },
         },
 
         -- Extras (optional)
@@ -143,16 +140,17 @@ return {
       -- Wire up servers
       -- For every LSP server, add the relevant configration as mentioned above
       local function xetup(name, cfg)
-        if not lspconfig[name] then return end
         cfg = cfg or {}
         cfg.on_attach = on_attach
         -- cfg.capabilities = vim.tbl_deep_extend("force", {}, capabilities, cfg.capabilities or {})
-        lspconfig[name].setup(cfg)
+        vim.lsp.config(name, cfg) -- merges onto bundled lsp/<name>.lua defaults
       end
 
       for name, cfg in pairs(servers) do
         xetup(name, cfg)
       end
+
+      vim.lsp.enable(vim.tbl_keys(servers)) -- arms FileType-based auto-attach
 
       vim.api.nvim_create_autocmd("BufWritePre", {
         callback = function()
