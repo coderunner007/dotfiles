@@ -2,7 +2,7 @@
   "permissions": {
     "defaultMode": "plan"
   },
-  "model": "opusplan",
+  "model": "sonnet",
   "hooks": {
     "SessionStart": [
       {
@@ -38,6 +38,30 @@
   "statusLine": {
     "type": "command",
     "command": "bash /Users/ajoseph/.claude/statusline.sh"
+  },
+  "enabledPlugins": {
+    "figma@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    },
+    "nx-claude-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "nrwl/nx-ai-agents-config"
+      }
+    },
+    "crit": {
+      "source": {
+        "source": "github",
+        "repo": "tomasz-tomczyk/crit",
+        "ref": "v0.19.0"
+      }
+    }
   },
   "effortLevel": "medium",
   "autoMemoryEnabled": false,

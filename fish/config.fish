@@ -32,6 +32,7 @@ set -x LC_COLLATE C
 ################
 #  Initialize  #
 ################
+fnm env --use-on-cd --version-file-strategy recursive --corepack-enabled --shell fish | source
 zoxide init fish | source
 
 if status is-interactive
