@@ -1,9 +1,15 @@
 [user]
 	name = Alan Joseph
-	email = alanjos@amazon.com
+	email = ajoseph@coursera.org
+	signingkey = /Users/ajoseph/.ssh/sign_ghub_coursera.pub
 [color]
 	ui = auto
 [alias]
 	dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)%an <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
 [core]
 	excludesfile = ~/.gitignore
+[gpg]
+	format = ssh
+
+[includeIf "gitdir:~/Documents/projects/"]
+	path = ~/.gitconfig-personal
