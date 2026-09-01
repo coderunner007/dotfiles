@@ -124,6 +124,24 @@ else
   curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell --force-no-brew -d "$HOME/.local/bin"
 fi
 
+echo 'Installing fish'
+if command -v fish > /dev/null; then
+  echo 'fish already installed, skipping'
+elif command -v brew > /dev/null; then
+  brew install fish
+elif command -v apt-get > /dev/null; then
+  sudo apt-get install -y fish
+elif command -v dnf > /dev/null; then
+  sudo dnf install -y fish
+elif command -v pacman > /dev/null; then
+  sudo pacman -S --noconfirm fish
+else
+  # fish is a Rust build now, so there is no practical source fallback here.
+  echo 'No supported package manager found - install fish manually:'
+  echo '  https://fishshell.com/#installation'
+  echo 'Then re-run this script to set up the plugins.'
+fi
+
 echo 'Initializing fish shell'
 "$CALLING_SCRIPT_BASE_DIR/fish/install.sh"
 
@@ -131,3 +149,19 @@ echo 'Execute the following commands after this script is run:'
 echo '1. Install bat for syntax highlighted cat: https://github.com/sharkdp/bat#installation'
 echo '2. Install fd for better find: https://github.com/sharkdp/fd#installation'
 echo '3. Install tmux plugins using: prefix + I. https://github.com/tmux-plugins/tpm#installing-plugins'
+
+# fish is installed and configured above, but it is not the login shell until
+# chsh is run - and chsh refuses any shell that is not listed in /etc/shells.
+if command -v fish > /dev/null; then
+  FISH_PATH=$(command -v fish)
+  if [[ ${SHELL:-} == "$FISH_PATH" ]]; then
+    echo "4. fish is already your default shell - nothing to do."
+  else
+    echo '4. fish is NOT your default shell yet. To switch:'
+    if ! grep -qxF "$FISH_PATH" /etc/shells 2> /dev/null; then
+      echo "     echo '$FISH_PATH' | sudo tee -a /etc/shells"
+    fi
+    echo "     chsh -s '$FISH_PATH'"
+    echo '   Then open a new terminal. (Log out and back in on some systems.)'
+  fi
+fi

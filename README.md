@@ -28,9 +28,14 @@ its `.stow-local-ignore` makes an accidental `stow mac` a no-op.
 ./init.sh
 ```
 
-Installs Homebrew, GNU Stow, tpm, fzf, zoxide and fnm (falling back to the
-git/curl installers when Homebrew is unavailable), deploys every package, and
-installs the fish plugins. Re-running it is safe - the Stow step uses `--restow`.
+Installs Homebrew, GNU Stow, tpm, fzf, zoxide, fnm and fish (falling back to
+the platform package manager or the git/curl installers when Homebrew is
+unavailable), deploys every package, and installs the fish plugins. Re-running
+it is safe - the Stow step uses `--restow`.
+
+It does not change your login shell. The script finishes by printing the exact
+`chsh` command to make fish the default (plus the `/etc/shells` line if fish is
+not listed there yet).
 
 ## Deploying a single package
 
