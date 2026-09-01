@@ -10,4 +10,4 @@ alias hsi='history 0 | grep -i'
 # tmux aliases
 alias ta='tmux attach || tmux new'
 # Integrate bat formatting for man pages: https://github.com/sharkdp/bat#man
-[ -f ~/.fzf.zsh ] && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+command -v bat > /dev/null 2>&1 && export MANPAGER="sh -c 'col -bx | bat -l man -p'"

@@ -96,13 +96,15 @@ echo 'Install tmux plugins'
 echo 'Installing FZF'
 if command -v brew > /dev/null; then
   brew install fzf
-  # --key-bindings/--completion generate the shell integration files. --no-update-rc
-  # so the installer does not append source lines to the stow-managed configs, and
-  # --no-fish because fish gets its bindings from the fzf.fish plugin
-  # (fzf_configure_bindings in fish/.config/fish/config.fish).
-  "$(brew --prefix)/opt/fzf/install" --key-bindings --completion --no-update-rc --no-fish
+  # No post-install script: it only generates ~/.fzf.zsh and ~/.fzf.bash, and zsh/bash
+  # are no longer configured here. fish gets its bindings from the fzf.fish plugin
+  # (fzf_configure_bindings in fish/.config/fish/config.fish), which calls the fzf
+  # binary directly.
 else
-  git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf" && "$HOME/.fzf/install"
+  # --bin: "Download fzf binary only; Do not generate ~/.fzf.{bash,zsh}". Without it the
+  # installer prompts (`read -p "... ([y]/n)"`), so init.sh could not run unattended.
+  # It installs to ~/.fzf/bin, which config.fish puts on PATH.
+  git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf" && "$HOME/.fzf/install" --bin
 fi
 echo 'Installing zoxide'
 if command -v brew > /dev/null; then
