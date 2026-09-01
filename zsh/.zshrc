@@ -154,8 +154,6 @@ fpath=($ZSH_PLUGIN/zsh-completions/src $fpath)
 # bindkey -M vicmd 'j' history-substring-search-down
 
 # For node
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+command -v fnm > /dev/null && eval "$(fnm env --log-level quiet --use-on-cd --version-file-strategy recursive --corepack-enabled --shell zsh)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
