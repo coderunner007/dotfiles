@@ -25,7 +25,15 @@ export CALLING_SCRIPT_BASE_DIR
 # installs below. Ask once, up front, so each install can just test for brew
 # instead of prompting separately.
 if ! command -v brew > /dev/null; then
-  read -r -p 'Homebrew not found. Install Homebrew? [y/N] ' install_brew 2> /dev/null < /dev/tty || install_brew=n
+  # `read -p` writes its prompt to stderr, so it must not be redirected away.
+  if [ -r /dev/tty ]; then
+    printf 'Homebrew not found. Install Homebrew? [y/N] '
+    read -r install_brew < /dev/tty || install_brew=n
+    echo
+  else
+    echo 'Homebrew not found and no terminal to prompt on - skipping.'
+    install_brew=n
+  fi
   if [[ $install_brew == [Yy]* ]]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     # A fresh install is not on PATH yet for this script's shell
@@ -45,7 +53,15 @@ echo 'Checking for GNU Stow'
 if command -v stow > /dev/null; then
   echo 'stow already installed, skipping'
 else
-  read -r -p 'GNU Stow not found. Install it? [y/N] ' install_stow 2> /dev/null < /dev/tty || install_stow=n
+  # `read -p` writes its prompt to stderr, so it must not be redirected away.
+  if [ -r /dev/tty ]; then
+    printf 'GNU Stow not found. Install it? [y/N] '
+    read -r install_stow < /dev/tty || install_stow=n
+    echo
+  else
+    echo 'GNU Stow not found and no terminal to prompt on.'
+    install_stow=n
+  fi
   if [[ $install_stow == [Yy]* ]]; then
     if command -v brew > /dev/null; then
       brew install stow
