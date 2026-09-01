@@ -4,6 +4,7 @@ return {
   opts = {
     default_file_explorer = true,
     delete_to_trash = false,
+    cleanup_delay_ms = 5 * 60 * 1000, -- keep oil buffers alive so <C-o> can jump back to them
     view_options = {
       show_hidden = true,
       show_parent_dir = true, -- add ".."
