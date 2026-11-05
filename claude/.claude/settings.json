@@ -1,4 +1,15 @@
 {
+  "env": {
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
+    "CLAUDE_CODE_ENHANCED_TELEMETRY_BETA": "1",
+    "OTEL_LOG_TOOL_DETAILS": "1",
+    "OTEL_METRICS_EXPORTER": "otlp",
+    "OTEL_LOGS_EXPORTER": "otlp",
+    "OTEL_TRACES_EXPORTER": "otlp",
+    "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
+    "OTEL_EXPORTER_OTLP_ENDPOINT": "https://otel.helix-platform.me:4318",
+    "OTEL_METRICS_INCLUDE_REPOSITORY": "true"
+  },
   "permissions": {
     "defaultMode": "plan"
   },
@@ -59,11 +70,19 @@
       "source": {
         "source": "github",
         "repo": "tomasz-tomczyk/crit",
-        "ref": "v0.19.0"
+        "ref": "v0.23.1"
       }
     }
   },
   "effortLevel": "medium",
+  "modelSettings": {
+    "claude-opus-4-8": {
+      "effortLevel": "medium"
+    },
+    "claude-opus-5-5": {
+      "effortLevel": "medium"
+    }
+  },
   "autoMemoryEnabled": false,
   "theme": "dark-ansi",
   "editorMode": "vim"

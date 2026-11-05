@@ -128,6 +128,16 @@ if command -v brew > /dev/null; then
 else
   curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 fi
+echo 'Installing ripgrep and fd'
+if command -v brew > /dev/null; then
+  # Both are required, not optional: init.lua sets 'grepprg' to rg and fzf-lua's
+  # live_grep shells out to it, while the all-files picker calls fd.
+  brew install ripgrep fd
+else
+  echo 'brew not found - install these manually:'
+  echo '  ripgrep: https://github.com/BurntSushi/ripgrep#installation'
+  echo '  fd:      https://github.com/sharkdp/fd#installation'
+fi
 echo 'Installing fnm (node version manager)'
 if command -v fnm > /dev/null; then
   echo 'fnm already installed, skipping'
@@ -165,8 +175,7 @@ echo 'Initializing fish shell'
 
 echo 'Execute the following commands after this script is run:'
 echo '1. Install bat for syntax highlighted cat: https://github.com/sharkdp/bat#installation'
-echo '2. Install fd for better find: https://github.com/sharkdp/fd#installation'
-echo '3. Install tmux plugins using: prefix + I. https://github.com/tmux-plugins/tpm#installing-plugins'
+echo '2. Install tmux plugins using: prefix + I. https://github.com/tmux-plugins/tpm#installing-plugins'
 
 # fish is installed and configured above, but it is not the login shell until
 # chsh is run - and chsh refuses any shell that is not listed in /etc/shells.

@@ -28,7 +28,7 @@ its `.stow-local-ignore` makes an accidental `stow mac` a no-op.
 ./init.sh
 ```
 
-Installs Homebrew, GNU Stow, tpm, fzf, zoxide, fnm and fish (falling back to
+Installs Homebrew, GNU Stow, tpm, fzf, ripgrep, fd, zoxide, fnm and fish (falling back to
 the platform package manager or the git/curl installers when Homebrew is
 unavailable), deploys every package, and installs the fish plugins. Re-running
 it is safe - the Stow step uses `--restow`.
@@ -36,6 +36,35 @@ it is safe - the Stow step uses `--restow`.
 It does not change your login shell. The script finishes by printing the exact
 `chsh` command to make fish the default (plus the `/etc/shells` line if fish is
 not listed there yet).
+
+## nvim fuzzy finding
+
+[fzf-lua](https://github.com/ibhagwan/fzf-lua) with a shared ignore list
+(`node_modules`, `dist`, `build`, lock files) defined at the top of
+`nvim/.config/nvim/lua/plugins/fuzzy-finder.lua`.
+
+| Key | Picker |
+| --- | --- |
+| `<space>f` / `<space>F` | files (respects `.gitignore`) / every file |
+| `<space>a` / `<space>A` | live grep / live grep with no filtering |
+| `<space>b` `<space>t` `<space>r` | buffers, tabs, registers |
+| `<space>gs` `<space>gl` `<space>gb` `<space>gd` | git status, commits, branches, diff |
+
+Live grep takes ripgrep globs inline after a ` -- ` separator. Write them bare -
+each space-separated token becomes an `--iglob`, so a `-g` flag or quotes would be
+read as part of the glob itself:
+
+```
+useEffect -- *.tsx              only .tsx files
+useEffect -- !*test*            everything except test files
+useEffect -- *.ts !*.spec.ts    include and exclude together
+useEffect -- src/**             scope to a subtree
+```
+
+Inside any picker, `!term` excludes from the visible list, `'term` matches exactly,
+`a | b` is OR, and `^a` / `a$` anchor. File pickers add `<alt-i>` (toggle
+`.gitignore`), `<alt-h>` (hidden files), `<alt-f>` (follow symlinks) and `<ctrl-g>`
+(switch between live grep and grep).
 
 ## Deploying a single package
 
